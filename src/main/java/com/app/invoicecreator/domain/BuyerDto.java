@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CompanyDataDto {
+public class BuyerDto {
     private Long id;
     private String name;
     private Long nip;

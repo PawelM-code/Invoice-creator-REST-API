@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     @Override
     <S extends Invoice> S save(S entity);
+
+    @Override
+    Invoice getOne(Long invoideId);
 }

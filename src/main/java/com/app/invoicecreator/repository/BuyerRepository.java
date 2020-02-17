@@ -1,14 +1,14 @@
 package com.app.invoicecreator.repository;
 
-import com.app.invoicecreator.domain.Item;
+import com.app.invoicecreator.domain.Buyer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface BuyerRepository extends JpaRepository<Buyer, Long> {
     @Override
-    <S extends Item> S save(S entity);
+    <S extends Buyer> S save(S entity);
 
     @Override
-    Item getOne(Long itemId);
+    Buyer getOne(Long buyerId);
 }

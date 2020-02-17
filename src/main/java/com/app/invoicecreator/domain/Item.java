@@ -9,10 +9,10 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "items")
+@Entity
+@Table(name = "items")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

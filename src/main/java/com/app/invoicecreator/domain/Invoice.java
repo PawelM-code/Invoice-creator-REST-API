@@ -3,7 +3,6 @@ package com.app.invoicecreator.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,10 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "invoices")
+@Entity
+@Table(name = "invoices")
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,11 +25,9 @@ public class Invoice {
     @Column(name = "issueDate")
     private Date issueDate;
 
-    @Column(name = "dealerData")
-    private CompanyData dealerData;
-
-    @Column(name = "buyerData")
-    private CompanyData buyerData;
+    @ManyToOne
+    @JoinColumn(name = "buyer_id")
+    private Buyer buyer;
 
     @OneToMany(
             targetEntity = Item.class,
@@ -41,4 +38,12 @@ public class Invoice {
 
     @Column(name = "comments")
     private String comments;
+
+    public Invoice(String number, Date issueDate, Buyer buyer, List<Item> items, String comments) {
+        this.number = number;
+        this.issueDate = issueDate;
+        this.buyer = buyer;
+        this.items = items;
+        this.comments = comments;
+    }
 }
