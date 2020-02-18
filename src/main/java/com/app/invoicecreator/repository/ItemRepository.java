@@ -1,6 +1,6 @@
 package com.app.invoicecreator.repository;
 
-import com.app.invoicecreator.domain.Item;
+import com.app.invoicecreator.domain.item.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,9 +1,9 @@
 package com.app.invoicecreator.repository;
 
-import com.app.invoicecreator.domain.Taxpayer;
-import com.app.invoicecreator.domain.Invoice;
-import com.app.invoicecreator.domain.Item;
-import com.app.invoicecreator.domain.Product;
+import com.app.invoicecreator.domain.taxpayer.Taxpayer;
+import com.app.invoicecreator.domain.invoice.Invoice;
+import com.app.invoicecreator.domain.item.Item;
+import com.app.invoicecreator.domain.product.Product;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,7 +1,7 @@
 package com.app.invoicecreator.mapper;
 
-import com.app.invoicecreator.domain.Taxpayer;
-import com.app.invoicecreator.domain.TaxpayerDto;
+import com.app.invoicecreator.domain.taxpayer.Taxpayer;
+import com.app.invoicecreator.domain.taxpayer.TaxpayerDto;
 import org.springframework.stereotype.Component;
 
 @Component

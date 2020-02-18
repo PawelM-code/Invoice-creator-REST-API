@@ -1,7 +1,7 @@
-package com.app.invoicecreator.taxpayers;
+package com.app.invoicecreator.client.taxpayers;
 
 import com.app.invoicecreator.config.FinanceMinistryConfig;
-import com.app.invoicecreator.domain.jsonTaxpayer.TaxpayerResultDto;
+import com.app.invoicecreator.domain.taxpayer.TaxpayerResultDto;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

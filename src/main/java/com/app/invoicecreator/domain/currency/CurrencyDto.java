@@ -1,5 +1,6 @@
-package com.app.invoicecreator.domain;
+package com.app.invoicecreator.domain.currency;
 
+import com.app.invoicecreator.domain.currency.CurrencyRatesDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,15 +12,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TaxpayerDto {
+public class CurrencyDto {
     @JsonIgnore
     private Long id;
-    @JsonProperty("name")
-    private String name;
-    @JsonProperty("nip")
-    private Long nip;
-    @JsonProperty("regon")
-    private Long regon;
-    @JsonProperty("workingAddress")
-    private String workingAddress;
+
+    @JsonProperty("currency")
+    private String currency;
+
+    @JsonProperty("code")
+    private String code;
+
+    @JsonProperty("rates")
+    private CurrencyRatesDto[] rates;
 }

@@ -1,6 +1,5 @@
-package com.app.invoicecreator.domain.jsonTaxpayer;
+package com.app.invoicecreator.domain.taxpayer;
 
-import com.app.invoicecreator.domain.TaxpayerDto;
 import lombok.Getter;
 import lombok.Setter;
 

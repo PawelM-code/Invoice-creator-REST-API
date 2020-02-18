@@ -1,9 +1,9 @@
-package com.app.invoicecreator.domain;
+package com.app.invoicecreator.domain.product;
 
+import com.app.invoicecreator.domain.item.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;

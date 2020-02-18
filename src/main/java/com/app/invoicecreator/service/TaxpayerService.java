@@ -1,10 +1,10 @@
 package com.app.invoicecreator.service;
 
-import com.app.invoicecreator.domain.TaxpayerDto;
-import com.app.invoicecreator.domain.jsonTaxpayer.TaxpayerResultDto;
+import com.app.invoicecreator.domain.taxpayer.TaxpayerDto;
+import com.app.invoicecreator.domain.taxpayer.TaxpayerResultDto;
 import com.app.invoicecreator.mapper.TaxpayerMapper;
 import com.app.invoicecreator.repository.TaxpayerRepository;
-import com.app.invoicecreator.taxpayers.TaxpayerClient;
+import com.app.invoicecreator.client.taxpayers.TaxpayerClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

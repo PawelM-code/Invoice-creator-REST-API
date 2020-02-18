@@ -1,6 +1,6 @@
 package com.app.invoicecreator.controller;
 
-import com.app.invoicecreator.domain.TaxpayerDto;
+import com.app.invoicecreator.domain.taxpayer.TaxpayerDto;
 import com.app.invoicecreator.service.TaxpayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

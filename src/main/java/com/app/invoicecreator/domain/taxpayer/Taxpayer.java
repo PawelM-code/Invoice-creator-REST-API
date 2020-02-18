@@ -1,5 +1,6 @@
-package com.app.invoicecreator.domain;
+package com.app.invoicecreator.domain.taxpayer;
 
+import com.app.invoicecreator.domain.invoice.Invoice;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "companies")
+@Table(name = "taxpayers")
 public class Taxpayer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
