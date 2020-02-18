@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "companies")
-public class Buyer {
+public class Taxpayer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -32,12 +32,12 @@ public class Buyer {
 
     @OneToMany(
             targetEntity = Invoice.class,
-            mappedBy = "buyer",
+            mappedBy = "taxpayer",
             fetch = FetchType.LAZY
     )
     List<Invoice> invoices = new ArrayList<>();
 
-    public Buyer(String name, Long nip, Long regon, String workingAddress) {
+    public Taxpayer(String name, Long nip, Long regon, String workingAddress) {
         this.name = name;
         this.nip = nip;
         this.regon = regon;

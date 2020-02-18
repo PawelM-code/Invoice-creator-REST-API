@@ -26,8 +26,8 @@ public class Invoice {
     private Date issueDate;
 
     @ManyToOne
-    @JoinColumn(name = "buyer_id")
-    private Buyer buyer;
+    @JoinColumn(name = "taxpayer_id")
+    private Taxpayer taxpayer;
 
     @OneToMany(
             targetEntity = Item.class,
@@ -39,10 +39,10 @@ public class Invoice {
     @Column(name = "comments")
     private String comments;
 
-    public Invoice(String number, Date issueDate, Buyer buyer, List<Item> items, String comments) {
+    public Invoice(String number, Date issueDate, Taxpayer taxpayer, List<Item> items, String comments) {
         this.number = number;
         this.issueDate = issueDate;
-        this.buyer = buyer;
+        this.taxpayer = taxpayer;
         this.items = items;
         this.comments = comments;
     }

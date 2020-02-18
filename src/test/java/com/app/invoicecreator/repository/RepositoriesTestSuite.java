@@ -1,6 +1,6 @@
 package com.app.invoicecreator.repository;
 
-import com.app.invoicecreator.domain.Buyer;
+import com.app.invoicecreator.domain.Taxpayer;
 import com.app.invoicecreator.domain.Invoice;
 import com.app.invoicecreator.domain.Item;
 import com.app.invoicecreator.domain.Product;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertThat;
 @Transactional
 public class RepositoriesTestSuite {
     @Autowired
-    BuyerRepository buyerRepository;
+    TaxpayerRepository taxpayerRepository;
     @Autowired
     InvoiceRepository invoiceRepository;
     @Autowired
@@ -68,14 +68,14 @@ public class RepositoriesTestSuite {
     @Test
     public void testBuyerRepository() {
         //Given
-        Buyer buyer = new Buyer("Firma", 666666666L, 555555L, "Powstańców 33");
+        Taxpayer taxpayer = new Taxpayer("Firma", 666666666L, 555555L, "Powstańców 33");
 
         //When
-        buyerRepository.save(buyer);
-        Long id = buyer.getId();
+        taxpayerRepository.save(taxpayer);
+        Long id = taxpayer.getId();
 
         //Then
-        assertEquals(buyer, buyerRepository.getOne(id));
+        assertEquals(taxpayer, taxpayerRepository.getOne(id));
     }
 
     @Test
@@ -85,12 +85,12 @@ public class RepositoriesTestSuite {
         Item item = new Item(product, new BigDecimal(100.50), 10);
         List<Item> items = new ArrayList<>();
         items.add(item);
-        Buyer buyer = new Buyer("Firma", 666666666L, 555555L, "Powstańców 33");
-        Invoice invoice = new Invoice("FV/01/2020", new Date(2020 - 2 - 17), buyer, items, "comments");
+        Taxpayer taxpayer = new Taxpayer("Firma", 666666666L, 555555L, "Powstańców 33");
+        Invoice invoice = new Invoice("FV/01/2020", new Date(2020 - 2 - 17), taxpayer, items, "comments");
 
         productRepository.save(product);
         itemRepository.save(item);
-        buyerRepository.save(buyer);
+        taxpayerRepository.save(taxpayer);
 
         //When
         invoiceRepository.save(invoice);

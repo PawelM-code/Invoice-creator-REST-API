@@ -14,8 +14,8 @@ public class InvoiceDto {
     private Long id;
     private String number;
     private Date issueDate;
-    private Buyer dealerData;
-    private Buyer buyer;
+    private Taxpayer dealerData;
+    private Taxpayer taxpayer;
     private List<Item> products;
     private String comments;
 }
