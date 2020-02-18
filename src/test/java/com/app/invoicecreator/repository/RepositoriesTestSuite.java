@@ -1,5 +1,6 @@
 package com.app.invoicecreator.repository;
 
+import com.app.invoicecreator.domain.currency.Currency;
 import com.app.invoicecreator.domain.taxpayer.Taxpayer;
 import com.app.invoicecreator.domain.invoice.Invoice;
 import com.app.invoicecreator.domain.item.Item;
@@ -32,6 +33,8 @@ public class RepositoriesTestSuite {
     ItemRepository itemRepository;
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    CurrencyRepository currencyRepository;
 
     @Test
     public void testProductSave() {
@@ -99,5 +102,18 @@ public class RepositoriesTestSuite {
         //Then
         assertEquals(invoice, invoiceRepository.getOne(id));
         assertEquals(1, invoiceRepository.getOne(id).getItems().size());
+    }
+
+    @Test
+    public void testCurrencyRepository() {
+        //Given
+        Currency currency = new Currency("euro","EUR","2020-02-17",new BigDecimal(4.26));
+
+        //When
+        currencyRepository.save(currency);
+        Long id = currency.getId();
+
+        //Then
+        assertEquals(currency, currencyRepository.getOne(id));
     }
 }
