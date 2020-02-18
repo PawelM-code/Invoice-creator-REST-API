@@ -10,5 +10,5 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     <S extends Invoice> S save(S entity);
 
     @Override
-    Invoice getOne(Long invoideId);
+    Invoice getOne(Long id);
 }

@@ -29,6 +29,11 @@ public class Product {
     )
     private List<Item> items = new ArrayList<>();
 
+    public Product(Long id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+
     public Product(String description) {
         this.description = description;
     }

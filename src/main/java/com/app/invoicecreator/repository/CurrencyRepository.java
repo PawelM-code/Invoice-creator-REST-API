@@ -10,5 +10,5 @@ public interface CurrencyRepository extends JpaRepository<Currency, Long> {
     <S extends Currency> S save(S entity);
 
     @Override
-    Currency getOne(Long currencyId);
+    Currency getOne(Long id);
 }

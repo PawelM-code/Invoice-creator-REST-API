@@ -1,10 +1,10 @@
 package com.app.invoicecreator.repository;
 
 import com.app.invoicecreator.domain.currency.Currency;
-import com.app.invoicecreator.domain.taxpayer.Taxpayer;
 import com.app.invoicecreator.domain.invoice.Invoice;
 import com.app.invoicecreator.domain.item.Item;
 import com.app.invoicecreator.domain.product.Product;
+import com.app.invoicecreator.domain.taxpayer.Taxpayer;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,6 +47,38 @@ public class RepositoriesTestSuite {
 
         //Then
         assertEquals(product, productRepository.getOne(id));
+    }
+
+    @Test
+    public void testGetProducts() {
+        //Given
+        Product product1 = new Product("Samsung Z flip");
+        Product product2 = new Product("Samsung Z2 flip");
+        productRepository.save(product1);
+        productRepository.save(product2);
+
+        //When
+        List<Product> productList = productRepository.findAll();
+
+        //Then
+        assertEquals(2, productList.size());
+    }
+
+    @Test
+    public void testDeleteProduct() {
+        //Given
+        Product product1 = new Product("Samsung Z flip");
+        Product product2 = new Product("Samsung Z2 flip");
+        productRepository.save(product1);
+        productRepository.save(product2);
+        Long id = product1.getId();
+
+        //When
+        productRepository.deleteById(id);
+        List<Product> productList = productRepository.findAll();
+
+        //Then
+        assertEquals(1, productList.size());
     }
 
     @Test
@@ -107,7 +139,7 @@ public class RepositoriesTestSuite {
     @Test
     public void testCurrencyRepository() {
         //Given
-        Currency currency = new Currency("euro","EUR","2020-02-17",new BigDecimal(4.26));
+        Currency currency = new Currency("euro", "EUR", "2020-02-17", new BigDecimal(4.26));
 
         //When
         currencyRepository.save(currency);

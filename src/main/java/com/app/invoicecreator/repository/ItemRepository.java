@@ -10,5 +10,5 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     <S extends Item> S save(S entity);
 
     @Override
-    Item getOne(Long itemId);
+    Item getOne(Long id);
 }
