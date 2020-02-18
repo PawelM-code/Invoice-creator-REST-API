@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class FinanceMinistryConfig {
-    @Value(("${mf.api.prod}"))
+    @Value("${mf.api.prod}")
     private String financeMinistryApiEndpoint;
 }
