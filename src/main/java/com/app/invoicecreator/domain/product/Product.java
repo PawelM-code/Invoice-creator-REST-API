@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "description")
@@ -25,7 +25,8 @@ public class Product {
     @OneToMany(
             targetEntity = Item.class,
             mappedBy = "product",
-            fetch = FetchType.LAZY
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
     )
     private List<Item> items = new ArrayList<>();
 

@@ -20,7 +20,7 @@ public class TaxpayerController {
     }
 
     @PostMapping(value = "/taxpayers")
-    public void saveTaxpayer(TaxpayerDto taxpayerDto) {
+    public void saveTaxpayer(@RequestBody TaxpayerDto taxpayerDto) {
         taxpayerService.saveTaxpayer(taxpayerMapper.mapToTaxpayer(taxpayerDto));
     }
 }

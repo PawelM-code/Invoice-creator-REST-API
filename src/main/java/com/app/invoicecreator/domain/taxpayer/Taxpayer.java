@@ -1,7 +1,6 @@
 package com.app.invoicecreator.domain.taxpayer;
 
 import com.app.invoicecreator.domain.invoice.Invoice;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.List;
 @Table(name = "taxpayers")
 public class Taxpayer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")

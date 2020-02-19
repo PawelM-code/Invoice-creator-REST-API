@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -18,7 +17,7 @@ import java.util.List;
 @Table(name = "invoices")
 public class Invoice {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "number")
@@ -55,20 +54,5 @@ public class Invoice {
         this.issueDate = issueDate;
         this.taxpayer = taxpayer;
         this.comments = comments;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Invoice)) return false;
-
-        Invoice invoice = (Invoice) o;
-
-        return getTaxpayer().equals(invoice.getTaxpayer());
-    }
-
-    @Override
-    public int hashCode() {
-        return getTaxpayer().hashCode();
     }
 }

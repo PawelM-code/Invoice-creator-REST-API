@@ -1,7 +1,7 @@
 package com.app.invoicecreator.domain.item;
 
-import com.app.invoicecreator.domain.product.Product;
 import com.app.invoicecreator.domain.invoice.Invoice;
+import com.app.invoicecreator.domain.product.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Table(name = "items")
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -36,13 +36,12 @@ public class Item {
     @Column(name = "value")
     private BigDecimal value;
 
-    public Item(Product product, BigDecimal price, int quantity) {
+    public Item(Long id, Product product, Invoice invoice, BigDecimal price, int quantity) {
+        this.id = id;
         this.product = product;
+        this.invoice = invoice;
         this.price = price;
         this.quantity = quantity;
-    }
-
-    public BigDecimal getValue() {
-        return new BigDecimal(quantity).multiply(price);
+        this.value = new BigDecimal(quantity).multiply(price);
     }
 }
