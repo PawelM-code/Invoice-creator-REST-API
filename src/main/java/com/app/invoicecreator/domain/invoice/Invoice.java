@@ -25,7 +25,7 @@ public class Invoice {
     private String number;
 
     @Column(name = "issueDate")
-    private Date issueDate;
+    private String issueDate;
 
     @ManyToOne
     @JoinColumn(name = "taxpayer_id")
@@ -42,7 +42,7 @@ public class Invoice {
     @Column(name = "comments")
     private String comments;
 
-    public Invoice(Long id, String number, Date issueDate, Taxpayer taxpayer, String comments) {
+    public Invoice(Long id, String number, String issueDate, Taxpayer taxpayer, String comments) {
         this.id = id;
         this.number = number;
         this.issueDate = issueDate;
@@ -50,7 +50,7 @@ public class Invoice {
         this.comments = comments;
     }
 
-    public Invoice(String number, Date issueDate, Taxpayer taxpayer, String comments) {
+    public Invoice(String number, String issueDate, Taxpayer taxpayer, String comments) {
         this.number = number;
         this.issueDate = issueDate;
         this.taxpayer = taxpayer;

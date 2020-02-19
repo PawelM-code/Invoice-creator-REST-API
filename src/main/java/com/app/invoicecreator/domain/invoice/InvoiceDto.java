@@ -13,7 +13,7 @@ import java.util.Date;
 public class InvoiceDto {
     private Long id;
     private String number;
-    private Date issueDate;
+    private String issueDate;
     private TaxpayerDto taxpayerDto;
     private String comments;
 }

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaxpayerDto {
-    //    @JsonIgnore
+    @JsonProperty("id")
     private Long id;
     @JsonProperty("name")
     private String name;
