@@ -1,5 +1,6 @@
 package com.app.invoicecreator.service;
 
+import com.app.invoicecreator.domain.taxpayer.Taxpayer;
 import com.app.invoicecreator.domain.taxpayer.TaxpayerDto;
 import com.app.invoicecreator.domain.taxpayer.TaxpayerResultDto;
 import com.app.invoicecreator.mapper.TaxpayerMapper;
@@ -15,9 +16,14 @@ public class TaxpayerService {
     private final TaxpayerMapper taxpayerMapper;
     private final TaxpayerRepository taxpayerRepository;
 
-    public TaxpayerDto getTaxpayerByNip(Long nip, String date){
-        TaxpayerResultDto taxpayerResultDto = taxpayerClient.getTaxpayerDataByNip(nip, date);
-        taxpayerRepository.save(taxpayerMapper.mapToTaxpayer(taxpayerResultDto.getResult().getSubject()));
-        return taxpayerResultDto.getResult().getSubject();
+    public Taxpayer getTaxpayerByNip(Long nip, String date){
+        return taxpayerMapper.mapToTaxpayer(taxpayerClient
+                .getTaxpayerDataByNip(nip, date)
+                .getResult()
+                .getSubject());
+    }
+
+    public void saveTaxpayer(Taxpayer taxpayer) {
+        taxpayerRepository.save(taxpayer);
     }
 }

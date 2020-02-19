@@ -6,11 +6,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TaxpayerMapper {
-    public Taxpayer mapToTaxpayer(final TaxpayerDto taxpayerDto) {
+    public Taxpayer mapToTaxpayer(TaxpayerDto taxpayerDto) {
         return new Taxpayer(
+                taxpayerDto.getId(),
                 taxpayerDto.getName(),
                 taxpayerDto.getNip(),
                 taxpayerDto.getRegon(),
                 taxpayerDto.getWorkingAddress());
+    }
+
+    public TaxpayerDto mapToTaxpayerDto(Taxpayer taxpayer) {
+        return new TaxpayerDto(
+                taxpayer.getId(),
+                taxpayer.getName(),
+                taxpayer.getNip(),
+                taxpayer.getRegon(),
+                taxpayer.getWorkingAddress()
+        );
     }
 }

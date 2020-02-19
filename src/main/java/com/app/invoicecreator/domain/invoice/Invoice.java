@@ -34,18 +34,41 @@ public class Invoice {
     @OneToMany(
             targetEntity = Item.class,
             mappedBy = "invoice",
-            fetch = FetchType.LAZY
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
     )
     private List<Item> items = new ArrayList<>();
 
     @Column(name = "comments")
     private String comments;
 
-    public Invoice(String number, Date issueDate, Taxpayer taxpayer, List<Item> items, String comments) {
+    public Invoice(Long id, String number, Date issueDate, Taxpayer taxpayer, String comments) {
+        this.id = id;
         this.number = number;
         this.issueDate = issueDate;
         this.taxpayer = taxpayer;
-        this.items = items;
         this.comments = comments;
+    }
+
+    public Invoice(String number, Date issueDate, Taxpayer taxpayer, String comments) {
+        this.number = number;
+        this.issueDate = issueDate;
+        this.taxpayer = taxpayer;
+        this.comments = comments;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Invoice)) return false;
+
+        Invoice invoice = (Invoice) o;
+
+        return getTaxpayer().equals(invoice.getTaxpayer());
+    }
+
+    @Override
+    public int hashCode() {
+        return getTaxpayer().hashCode();
     }
 }

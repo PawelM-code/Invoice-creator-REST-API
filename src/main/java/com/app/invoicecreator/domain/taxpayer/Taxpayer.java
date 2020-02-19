@@ -1,6 +1,7 @@
 package com.app.invoicecreator.domain.taxpayer;
 
 import com.app.invoicecreator.domain.invoice.Invoice;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,9 +35,18 @@ public class Taxpayer {
     @OneToMany(
             targetEntity = Invoice.class,
             mappedBy = "taxpayer",
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     List<Invoice> invoices = new ArrayList<>();
+
+    public Taxpayer(Long id, String name, Long nip, Long regon, String workingAddress) {
+        this.id = id;
+        this.name = name;
+        this.nip = nip;
+        this.regon = regon;
+        this.workingAddress = workingAddress;
+    }
 
     public Taxpayer(String name, Long nip, Long regon, String workingAddress) {
         this.name = name;

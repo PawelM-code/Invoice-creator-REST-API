@@ -1,6 +1,6 @@
 package com.app.invoicecreator.controller;
 
-import com.app.invoicecreator.domain.taxpayer.TaxpayerDto;
+import com.app.invoicecreator.domain.taxpayer.Taxpayer;
 import com.app.invoicecreator.service.TaxpayerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,8 +31,8 @@ public class TaxpayerControllerTest {
         //Given
         long nip = 1111L;
         String date = "2020-02-17";
-        TaxpayerDto taxpayerDto = new TaxpayerDto(1L, "Company", nip, 55555L, "Address");
-        when(taxpayerService.getTaxpayerByNip(nip, date)).thenReturn(taxpayerDto);
+        Taxpayer taxpayer = new Taxpayer(1L, "Company", nip, 55555L, "Address");
+        when(taxpayerService.getTaxpayerByNip(nip, date)).thenReturn(taxpayer);
 
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders

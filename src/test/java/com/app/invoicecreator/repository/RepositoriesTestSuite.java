@@ -14,12 +14,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -101,7 +99,7 @@ public class RepositoriesTestSuite {
     }
 
     @Test
-    public void testBuyerRepository() {
+    public void testTaxpayerRepository() {
         //Given
         Taxpayer taxpayer = new Taxpayer("Firma", 666666666L, 555555L, "Powstańców 33");
 
@@ -110,21 +108,21 @@ public class RepositoriesTestSuite {
         Long id = taxpayer.getId();
 
         //Then
-        assertEquals(taxpayer, taxpayerRepository.getOne(id));
+        assertTrue(taxpayerRepository.findById(id).isPresent());
+        assertEquals(taxpayer.getName(), taxpayerRepository.findById(id).get().getName());
+        assertEquals(taxpayer.getNip(), taxpayerRepository.findById(id).get().getNip());
+        assertEquals(taxpayer.getRegon(), taxpayerRepository.findById(id).get().getRegon());
+        assertEquals(taxpayer.getWorkingAddress(), taxpayerRepository.findById(id).get().getWorkingAddress());
     }
 
     @Test
     public void testInvoiceRepository() {
         //Given
         Product product = new Product("Samsung Z flip");
-        Item item = new Item(product, new BigDecimal(100.50), 10);
-        List<Item> items = new ArrayList<>();
-        items.add(item);
         Taxpayer taxpayer = new Taxpayer("Firma", 666666666L, 555555L, "Powstańców 33");
-        Invoice invoice = new Invoice("FV/01/2020", new Date(2020 - 2 - 17), taxpayer, items, "comments");
+        Invoice invoice = new Invoice("FV/01/2020", new Date(2020 - 2 - 17), taxpayer, "comments");
 
         productRepository.save(product);
-        itemRepository.save(item);
         taxpayerRepository.save(taxpayer);
 
         //When
@@ -132,8 +130,11 @@ public class RepositoriesTestSuite {
         Long id = invoice.getId();
 
         //Then
-        assertEquals(invoice, invoiceRepository.getOne(id));
-        assertEquals(1, invoiceRepository.getOne(id).getItems().size());
+        assertTrue(invoiceRepository.findById(id).isPresent());
+        assertEquals("comments", invoiceRepository.findById(id).get().getComments());
+        assertEquals("FV/01/2020", invoiceRepository.findById(id).get().getNumber());
+        assertEquals(new Date(2020 - 2 - 17), invoiceRepository.findById(id).get().getIssueDate());
+        assertEquals("Firma", invoiceRepository.findById(id).get().getTaxpayer().getName());
     }
 
     @Test
