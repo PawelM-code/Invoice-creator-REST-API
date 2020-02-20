@@ -5,6 +5,7 @@ import com.app.invoicecreator.exception.InvoiceNotFoundException;
 import com.app.invoicecreator.mapper.InvoiceMapper;
 import com.app.invoicecreator.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,11 @@ import java.util.List;
 public class InvoiceController {
     private final InvoiceService invoiceService;
     private final InvoiceMapper invoiceMapper;
+
+    @PatchMapping(value = "/invoices", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public InvoiceDto updateTotal(@RequestBody InvoiceDto invoiceDto) {
+        return invoiceMapper.mapToInvoiceDto(invoiceService.saveInvoice(invoiceMapper.mapToInvoice(invoiceDto)));
+    }
 
     @PostMapping(value = "/invoices")
     public void createInvoice(@RequestBody InvoiceDto invoiceDto) {

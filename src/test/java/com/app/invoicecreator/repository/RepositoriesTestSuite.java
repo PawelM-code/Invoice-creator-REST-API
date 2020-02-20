@@ -2,6 +2,7 @@ package com.app.invoicecreator.repository;
 
 import com.app.invoicecreator.domain.currency.Currency;
 import com.app.invoicecreator.domain.invoice.Invoice;
+import com.app.invoicecreator.domain.invoice.InvoiceCurrency;
 import com.app.invoicecreator.domain.item.Item;
 import com.app.invoicecreator.domain.product.Product;
 import com.app.invoicecreator.domain.taxpayer.Taxpayer;
@@ -14,7 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -94,7 +94,7 @@ public class RepositoriesTestSuite {
         assertEquals(item, itemRepository.getOne(id));
 
         assertThat(new BigDecimal(1005), Matchers.comparesEqualTo(itemRepository
-                .getOne(item.getId())
+                .getOne(id)
                 .getValue()));
     }
 
@@ -120,7 +120,7 @@ public class RepositoriesTestSuite {
         //Given
         Product product = new Product("Samsung Z flip");
         Taxpayer taxpayer = new Taxpayer("Firma", 666666666L, 555555L, "Powstańców 33");
-        Invoice invoice = new Invoice("FV/01/2020", "2020-02-17", taxpayer, "comments");
+        Invoice invoice = new Invoice("FV/01/2020", "2020-02-17", taxpayer, "comments", InvoiceCurrency.PLN);
 
         productRepository.save(product);
         taxpayerRepository.save(taxpayer);

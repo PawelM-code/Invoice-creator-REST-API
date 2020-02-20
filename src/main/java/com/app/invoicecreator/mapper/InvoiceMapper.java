@@ -13,32 +13,37 @@ import java.util.stream.Collectors;
 public class InvoiceMapper {
     private final TaxpayerMapper taxpayerMapper;
 
-    public Invoice mapToInvoice(InvoiceDto invoiceDto){
+    public Invoice mapToInvoice(InvoiceDto invoiceDto) {
         return new Invoice(
                 invoiceDto.getId(),
                 invoiceDto.getNumber(),
                 invoiceDto.getIssueDate(),
                 taxpayerMapper.mapToTaxpayer(invoiceDto.getTaxpayerDto()),
-                invoiceDto.getComments());
+                invoiceDto.getComments(),
+                invoiceDto.getInvoiceCurrency());
     }
 
-    public InvoiceDto mapToInvoiceDto(Invoice invoice){
+    public InvoiceDto mapToInvoiceDto(Invoice invoice) {
         return new InvoiceDto(
                 invoice.getId(),
                 invoice.getNumber(),
                 invoice.getIssueDate(),
                 taxpayerMapper.mapToTaxpayerDto(invoice.getTaxpayer()),
-                invoice.getComments());
+                invoice.getComments(),
+                invoice.getTotal(),
+                invoice.getInvoiceCurrency());
     }
 
-    public List<InvoiceDto> mapToInvoiceDtoList(List<Invoice> invoiceList){
+    public List<InvoiceDto> mapToInvoiceDtoList(List<Invoice> invoiceList) {
         return invoiceList.stream()
-                .map(i-> new InvoiceDto(
+                .map(i -> new InvoiceDto(
                         i.getId(),
                         i.getNumber(),
                         i.getIssueDate(),
                         taxpayerMapper.mapToTaxpayerDto(i.getTaxpayer()),
-                        i.getComments()))
+                        i.getComments(),
+                        i.getTotal(),
+                        i.getInvoiceCurrency()))
                 .collect(Collectors.toList());
     }
 }

@@ -1,6 +1,7 @@
 package com.app.invoicecreator.controller;
 
 import com.app.invoicecreator.domain.item.ItemDto;
+import com.app.invoicecreator.exception.InvoiceNotFoundException;
 import com.app.invoicecreator.exception.ItemNotFoundException;
 import com.app.invoicecreator.mapper.ItemMapper;
 import com.app.invoicecreator.service.ItemService;
@@ -18,17 +19,17 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping(value = "/items")
-    public void createItem(@RequestBody ItemDto itemDto){
+    public void createItem(@RequestBody ItemDto itemDto) throws InvoiceNotFoundException {
         itemService.saveItem(itemMapper.mapToItem(itemDto));
     }
 
     @DeleteMapping(value = "/items/{id}")
-    public void deleteItem(@PathVariable Long id){
+    public void deleteItem(@PathVariable Long id) {
         itemService.deleteItem(id);
     }
 
     @GetMapping(value = "/items/{id}")
-    public ItemDto getItem(@PathVariable Long id) throws ItemNotFoundException{
+    public ItemDto getItem(@PathVariable Long id) throws ItemNotFoundException {
         return itemMapper.mapToItemDto(itemService.getItem(id).orElseThrow(ItemNotFoundException::new));
     }
 

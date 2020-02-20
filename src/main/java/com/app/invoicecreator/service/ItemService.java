@@ -13,11 +13,15 @@ import java.util.Optional;
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    public Item saveItem(Item item){
-        return itemRepository.save(item);
+    public void saveItem(Item item) {
+        itemRepository.save(item);
     }
 
-    public Optional<Item> getItem(Long id){
+    List<Item> getItemsByInvoiceId(Long id) {
+        return itemRepository.findAllByInvoiceId(id);
+    }
+
+    public Optional<Item> getItem(Long id) {
         return itemRepository.findById(id);
     }
 
@@ -25,7 +29,7 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public void deleteItem(Long id){
+    public void deleteItem(Long id) {
         itemRepository.deleteById(id);
     }
 }

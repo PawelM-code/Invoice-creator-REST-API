@@ -5,12 +5,15 @@ import com.app.invoicecreator.domain.taxpayer.Taxpayer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -33,7 +36,7 @@ public class Invoice {
     @OneToMany(
             targetEntity = Item.class,
             mappedBy = "invoice",
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
     )
     private List<Item> items = new ArrayList<>();
@@ -41,18 +44,27 @@ public class Invoice {
     @Column(name = "comments")
     private String comments;
 
-    public Invoice(Long id, String number, String issueDate, Taxpayer taxpayer, String comments) {
+    @Column(name = "total")
+    private BigDecimal total;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "currency")
+    private InvoiceCurrency invoiceCurrency;
+
+    public Invoice(Long id, String number, String issueDate, Taxpayer taxpayer, String comments, InvoiceCurrency invoiceCurrency) {
         this.id = id;
         this.number = number;
         this.issueDate = issueDate;
         this.taxpayer = taxpayer;
         this.comments = comments;
+        this.invoiceCurrency = invoiceCurrency;
     }
 
-    public Invoice(String number, String issueDate, Taxpayer taxpayer, String comments) {
+    public Invoice(String number, String issueDate, Taxpayer taxpayer, String comments, InvoiceCurrency invoiceCurrency) {
         this.number = number;
         this.issueDate = issueDate;
         this.taxpayer = taxpayer;
         this.comments = comments;
+        this.invoiceCurrency = invoiceCurrency;
     }
 }

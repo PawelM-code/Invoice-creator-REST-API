@@ -4,7 +4,6 @@ import com.app.invoicecreator.domain.item.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,4 +20,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Override
     void deleteById(Long id);
+
+    List<Item> findAllByInvoiceId(Long id);
 }

@@ -44,4 +44,11 @@ public class Item {
         this.quantity = quantity;
         this.value = new BigDecimal(quantity).multiply(price);
     }
+
+    public Item(Product product, BigDecimal price, int quantity) {
+        this.product = product;
+        this.price = price;
+        this.quantity = quantity;
+        this.value = new BigDecimal(quantity).multiply(price);
+    }
 }
