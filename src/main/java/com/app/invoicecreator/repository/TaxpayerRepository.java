@@ -14,4 +14,6 @@ public interface TaxpayerRepository extends JpaRepository<Taxpayer, Long> {
     @Override
     Optional<Taxpayer> findById(Long id);
 
+    Optional<Taxpayer> findByNip(Long nip);
+
 }

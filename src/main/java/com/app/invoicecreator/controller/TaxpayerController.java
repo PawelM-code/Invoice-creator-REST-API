@@ -1,6 +1,7 @@
 package com.app.invoicecreator.controller;
 
 import com.app.invoicecreator.domain.taxpayer.TaxpayerDto;
+import com.app.invoicecreator.exception.TaxpayerNotFoundException;
 import com.app.invoicecreator.mapper.TaxpayerMapper;
 import com.app.invoicecreator.service.TaxpayerService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,12 @@ public class TaxpayerController {
     public TaxpayerDto getTaxpayer(@PathVariable Long nip, @PathVariable String date) {
         return taxpayerMapper.mapToTaxpayerDto(taxpayerService.getTaxpayerByNip(nip, date));
     }
+
+    @GetMapping(value = "/taxpayers/{nip}")
+    public Long getTaxpayerId(@PathVariable Long nip) throws TaxpayerNotFoundException {
+        return taxpayerService.getTaxpayerId(nip);
+    }
+
 
     @PostMapping(value = "/taxpayers")
     public void saveTaxpayer(@RequestBody TaxpayerDto taxpayerDto) {
