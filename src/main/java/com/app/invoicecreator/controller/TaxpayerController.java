@@ -20,7 +20,7 @@ public class TaxpayerController {
         return taxpayerMapper.mapToTaxpayerDto(taxpayerService.getTaxpayerByNip(nip, date));
     }
 
-    @GetMapping(value = "/taxpayers/{nip}")
+    @GetMapping(value = "/taxpayers/id/{nip}")
     public Long getTaxpayerId(@PathVariable Long nip) throws TaxpayerNotFoundException {
         return taxpayerService.getTaxpayerId(nip);
     }
