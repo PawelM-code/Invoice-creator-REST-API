@@ -20,4 +20,6 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
     @Override
     List<Invoice> findAll();
+
+    Optional<Invoice> findByNumber(String number);
 }

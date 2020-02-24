@@ -2,6 +2,7 @@ package com.app.invoicecreator.service;
 
 import com.app.invoicecreator.domain.invoice.Invoice;
 import com.app.invoicecreator.domain.item.Item;
+import com.app.invoicecreator.exception.InvoiceNotFoundException;
 import com.app.invoicecreator.repository.InvoiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,11 @@ public class InvoiceService {
 
     public Optional<Invoice> getInvoice(Long id) {
         return invoiceRepository.findById(id);
+    }
+
+    public Long getInvoiceId(String number) throws InvoiceNotFoundException {
+        Invoice invoice = invoiceRepository.findByNumber(number).orElseThrow(InvoiceNotFoundException::new);
+        return invoice.getId();
     }
 
     public List<Invoice> getInvoices() {

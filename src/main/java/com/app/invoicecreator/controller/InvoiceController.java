@@ -38,6 +38,11 @@ public class InvoiceController {
         return invoiceMapper.mapToInvoiceDto(invoiceService.getInvoice(id).orElseThrow(InvoiceNotFoundException::new));
     }
 
+    @GetMapping(value = "/invoices/id/{number}")
+    public Long getInvoiceId(@PathVariable String number) throws InvoiceNotFoundException {
+        return invoiceService.getInvoiceId(number);
+    }
+
     @GetMapping(value = "/invoices")
     public List<InvoiceDto> getInvoices() {
         return invoiceMapper.mapToInvoiceDtoList(invoiceService.getInvoices());
