@@ -53,4 +53,17 @@ public class Taxpayer {
         this.regon = regon;
         this.workingAddress = workingAddress;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Taxpayer)) return false;
+
+        Taxpayer taxpayer = (Taxpayer) o;
+
+        if (!getName().equals(taxpayer.getName())) return false;
+        if (!getNip().equals(taxpayer.getNip())) return false;
+        if (!getRegon().equals(taxpayer.getRegon())) return false;
+        return getWorkingAddress().equals(taxpayer.getWorkingAddress());
+    }
 }

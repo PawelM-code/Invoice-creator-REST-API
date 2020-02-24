@@ -121,18 +121,23 @@ public class RepositoriesTestSuite {
         Product product = new Product("Samsung Z flip");
         Taxpayer taxpayer = new Taxpayer("Firma", 666666666L, 555555L, "Powstańców 33");
         Invoice invoice = new Invoice("FV/01/2020", "2020-02-17", taxpayer, "comments", InvoiceCurrency.PLN);
+        Invoice invoice2 = new Invoice("FV/02/2020", "2020-02-18", taxpayer, "comments2", InvoiceCurrency.EUR);
 
         productRepository.save(product);
         taxpayerRepository.save(taxpayer);
 
         //When
         invoiceRepository.save(invoice);
+        invoiceRepository.save(invoice2);
         Long id = invoice.getId();
+        Long id2 = invoice2.getId();
 
         //Then
         assertTrue(invoiceRepository.findById(id).isPresent());
+        assertTrue(invoiceRepository.findById(id2).isPresent());
         assertEquals("comments", invoiceRepository.findById(id).get().getComments());
         assertEquals("FV/01/2020", invoiceRepository.findById(id).get().getNumber());
+        assertEquals("FV/02/2020", invoiceRepository.findById(id2).get().getNumber());
         assertEquals("2020-02-17", invoiceRepository.findById(id).get().getIssueDate());
         assertEquals("Firma", invoiceRepository.findById(id).get().getTaxpayer().getName());
     }
