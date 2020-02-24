@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TaxpayerService {
@@ -37,5 +39,9 @@ public class TaxpayerService {
         } else {
             LOGGER.info("Not saved, the data is already in the database!");
         }
+    }
+
+    public List<Taxpayer> getTaxpayers() {
+        return taxpayerRepository.findAll();
     }
 }

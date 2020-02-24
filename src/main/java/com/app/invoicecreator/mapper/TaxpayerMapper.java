@@ -4,6 +4,9 @@ import com.app.invoicecreator.domain.taxpayer.Taxpayer;
 import com.app.invoicecreator.domain.taxpayer.TaxpayerDto;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class TaxpayerMapper {
     public Taxpayer mapToTaxpayer(TaxpayerDto taxpayerDto) {
@@ -23,5 +26,16 @@ public class TaxpayerMapper {
                 taxpayer.getRegon(),
                 taxpayer.getWorkingAddress()
         );
+    }
+
+    public List<TaxpayerDto> mapToTaxpayerDtoList(List<Taxpayer> taxpayers) {
+        return taxpayers.stream()
+                .map(taxpayer -> new TaxpayerDto(
+                        taxpayer.getId(),
+                        taxpayer.getName(),
+                        taxpayer.getNip(),
+                        taxpayer.getRegon(),
+                        taxpayer.getWorkingAddress()))
+                .collect(Collectors.toList());
     }
 }

@@ -7,6 +7,8 @@ import com.app.invoicecreator.service.TaxpayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1")
@@ -25,6 +27,10 @@ public class TaxpayerController {
         return taxpayerService.getTaxpayerId(nip);
     }
 
+    @GetMapping(value = "/taxpayers")
+    public List<TaxpayerDto> getTaxpayer() {
+        return taxpayerMapper.mapToTaxpayerDtoList(taxpayerService.getTaxpayers());
+    }
 
     @PostMapping(value = "/taxpayers")
     public void saveTaxpayer(@RequestBody TaxpayerDto taxpayerDto) {
