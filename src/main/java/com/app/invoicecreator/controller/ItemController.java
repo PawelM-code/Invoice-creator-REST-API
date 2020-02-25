@@ -37,4 +37,9 @@ public class ItemController {
     public List<ItemDto> getItems() {
         return itemMapper.mapToItemDtoList(itemService.getItems());
     }
+
+    @GetMapping(value = "/items/invoice/{id}")
+    public List<ItemDto> getItemsByInvoiceId(@PathVariable Long id) {
+        return itemMapper.mapToItemDtoList(itemService.getItemsByInvoiceId(id));
+    }
 }

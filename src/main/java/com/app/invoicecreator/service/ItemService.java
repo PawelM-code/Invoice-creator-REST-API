@@ -17,7 +17,7 @@ public class ItemService {
         itemRepository.save(item);
     }
 
-    List<Item> getItemsByInvoiceId(Long id) {
+    public List<Item> getItemsByInvoiceId(Long id) {
         return itemRepository.findAllByInvoiceId(id);
     }
 
