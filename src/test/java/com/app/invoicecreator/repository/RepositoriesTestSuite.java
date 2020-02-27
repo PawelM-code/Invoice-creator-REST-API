@@ -145,7 +145,7 @@ public class RepositoriesTestSuite {
     @Test
     public void testCurrencyRepository() {
         //Given
-        Currency currency = new Currency(1L, "euro", "EUR", "2020-02-17", new BigDecimal(4.26));
+        Currency currency = new Currency("euro", "EUR", "2020-02-17", new BigDecimal(4.26));
 
         //When
         currencyRepository.save(currency);

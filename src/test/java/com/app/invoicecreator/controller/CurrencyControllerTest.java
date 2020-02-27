@@ -42,7 +42,7 @@ public class CurrencyControllerTest {
 
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/v1//currency/A/{code}/{date}", code, date)
+                .get("/v1/currency/A/{code}/{date}", code, date)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())

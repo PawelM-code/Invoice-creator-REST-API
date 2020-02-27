@@ -14,7 +14,8 @@ import java.time.format.DateTimeFormatter;
 public class CurrencyScheduler {
     private final CurrencyService currencyService;
 
-    @Scheduled(cron = "0 0 13 * * *")
+//    @Scheduled(cron = "0 0 13 * * *")
+    @Scheduled(fixedDelay = 10000)
     public void saveCurrencies() {
         String localDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 

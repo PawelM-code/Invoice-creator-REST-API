@@ -28,4 +28,11 @@ public class Currency {
 
     @Column(name = "midRate", scale = 4)
     private BigDecimal midRate;
+
+    public Currency(String currency, String code, String date, BigDecimal midRate) {
+        this.currency = currency;
+        this.code = code;
+        this.date = date;
+        this.midRate = midRate;
+    }
 }
