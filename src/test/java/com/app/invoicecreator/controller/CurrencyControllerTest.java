@@ -38,7 +38,7 @@ public class CurrencyControllerTest {
         currencyRatesDto[0] = new CurrencyRatesDto("",new BigDecimal(4.26),date);
         CurrencyDto currencyDto = new CurrencyDto(1L,"euro",code,currencyRatesDto);
 
-        when(currencyService.getCurrencyRateByCode(code,date)).thenReturn(currencyDto);
+        when(currencyService.saveCurrencyRateByCode(code,date)).thenReturn(currencyDto);
 
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders

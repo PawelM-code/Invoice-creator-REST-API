@@ -1,6 +1,7 @@
 package com.app.invoicecreator.service;
 
 import com.app.invoicecreator.client.currencies.CurrencyClient;
+import com.app.invoicecreator.domain.currency.Currency;
 import com.app.invoicecreator.domain.currency.CurrencyDto;
 import com.app.invoicecreator.mapper.CurrencyMapper;
 import com.app.invoicecreator.repository.CurrencyRepository;
@@ -14,9 +15,12 @@ public class CurrencyService {
     private final CurrencyMapper currencyMapper;
     private final CurrencyRepository currencyRepository;
 
-    public CurrencyDto getCurrencyRateByCode(String code, String date) {
-        CurrencyDto currencyDto = currencyClient.getCurrencyRateByCode(code, date);
-        currencyRepository.save(currencyMapper.mapToCurrency(currencyDto));
-        return currencyDto;
+    public void saveCurrencyRateByCode(String code, String date) {
+        Currency currency = currencyRepository.findByCodeAndDate(code,date).orElse(null);
+
+        if(currency == null){
+            currency = currencyMapper.mapToCurrency(currencyClient.getCurrencyRateByCode(code, date));
+            currencyRepository.save(currency);
+        }
     }
 }

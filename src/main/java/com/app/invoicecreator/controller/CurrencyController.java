@@ -13,7 +13,7 @@ public class CurrencyController {
     private final CurrencyService currencyService;
 
     @GetMapping(value = "/currency/A/{code}/{date}")
-    public CurrencyDto getCurrencyRate(@PathVariable String code, @PathVariable String date) {
-        return currencyService.getCurrencyRateByCode(code, date);
+    public void getCurrencyRate(@PathVariable String code, @PathVariable String date) {
+        currencyService.saveCurrencyRateByCode(code, date);
     }
 }

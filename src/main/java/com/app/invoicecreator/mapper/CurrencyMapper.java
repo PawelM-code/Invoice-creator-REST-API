@@ -2,6 +2,7 @@ package com.app.invoicecreator.mapper;
 
 import com.app.invoicecreator.domain.currency.Currency;
 import com.app.invoicecreator.domain.currency.CurrencyDto;
+import com.app.invoicecreator.domain.currency.CurrencyRatesDto;
 import org.springframework.stereotype.Component;
 
 @Component

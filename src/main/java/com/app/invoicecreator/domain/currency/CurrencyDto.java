@@ -1,6 +1,5 @@
 package com.app.invoicecreator.domain.currency;
 
-import com.app.invoicecreator.domain.currency.CurrencyRatesDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
