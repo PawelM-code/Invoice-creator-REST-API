@@ -44,8 +44,11 @@ public class Invoice {
     @Column(name = "comments")
     private String comments;
 
-    @Column(name = "total")
-    private BigDecimal total;
+    @Column(name = "baseTotal")
+    private BigDecimal baseTotal;
+
+    @Column(name = "plnTotal")
+    private BigDecimal plnTotal;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "currency")
@@ -60,11 +63,11 @@ public class Invoice {
         this.invoiceCurrency = invoiceCurrency;
     }
 
-    public Invoice(String number, String issueDate, Taxpayer taxpayer, String comments, InvoiceCurrency invoiceCurrency) {
-        this.number = number;
-        this.issueDate = issueDate;
-        this.taxpayer = taxpayer;
-        this.comments = comments;
-        this.invoiceCurrency = invoiceCurrency;
-    }
+//    public Invoice(String number, String issueDate, Taxpayer taxpayer, String comments, InvoiceCurrency invoiceCurrency) {
+//        this.number = number;
+//        this.issueDate = issueDate;
+//        this.taxpayer = taxpayer;
+//        this.comments = comments;
+//        this.invoiceCurrency = invoiceCurrency;
+//    }
 }

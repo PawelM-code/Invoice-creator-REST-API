@@ -30,7 +30,7 @@ public class InvoiceMapper {
                 invoice.getIssueDate(),
                 taxpayerMapper.mapToTaxpayerDto(invoice.getTaxpayer()),
                 invoice.getComments(),
-                invoice.getTotal(),
+                invoice.getBaseTotal(),
                 invoice.getInvoiceCurrency());
     }
 
@@ -42,7 +42,7 @@ public class InvoiceMapper {
                         i.getIssueDate(),
                         taxpayerMapper.mapToTaxpayerDto(i.getTaxpayer()),
                         i.getComments(),
-                        i.getTotal(),
+                        i.getBaseTotal(),
                         i.getInvoiceCurrency()))
                 .collect(Collectors.toList());
     }

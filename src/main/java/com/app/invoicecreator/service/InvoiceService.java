@@ -17,9 +17,23 @@ public class InvoiceService {
     public final InvoiceRepository invoiceRepository;
     public final TaxpayerService taxpayerService;
     public final ItemService itemService;
+    public final CurrencyService currencyService;
 
     public Invoice saveInvoice(Invoice invoice) {
-        invoice.setTotal(getInvoiceTotal(invoice.getId()));
+        invoice.setBaseTotal(getInvoiceTotal(invoice.getId()));
+
+        String invoiceCurrency = invoice.getInvoiceCurrency().toString();
+        String invoiceDate = invoice.getIssueDate();
+        if (!invoiceCurrency.equals("PLN")) {
+            BigDecimal rate = currencyService.saveCurrencyRateByCode(
+                    invoiceCurrency,
+                    invoiceDate)
+                    .getRates()[0]
+                    .getMid();
+            invoice.setPlnTotal(invoice.getBaseTotal().multiply(rate));
+        }else {
+            invoice.setPlnTotal(invoice.getBaseTotal());
+        }
         return invoiceRepository.save(invoice);
     }
 
@@ -30,7 +44,6 @@ public class InvoiceService {
         for (Item item : itemList) {
             totalResult = totalResult.add(item.getValue());
         }
-
         return totalResult;
     }
 
