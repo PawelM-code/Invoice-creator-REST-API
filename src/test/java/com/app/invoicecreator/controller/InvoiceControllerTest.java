@@ -50,7 +50,7 @@ public class InvoiceControllerTest {
         Taxpayer taxpayer = new Taxpayer(1L, "Firma", 10101010L, 55555L, "Address");
         TaxpayerDto taxpayerDto = new TaxpayerDto(1L, "Firma", 10101010L, 55555L, "Address");
         Invoice invoice = new Invoice(1L, "FV/01", "2002-01-03", taxpayer, "comments", InvoiceCurrency.PLN);
-        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/01", "2002-01-03", taxpayerDto, "comments",BigDecimal.ZERO, InvoiceCurrency.PLN);
+        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/01", "2002-01-03", taxpayerDto, "comments",BigDecimal.ZERO,BigDecimal.ZERO, InvoiceCurrency.PLN);
 
         when(invoiceMapper.mapToInvoice(any())).thenReturn(invoice);
 
@@ -81,7 +81,7 @@ public class InvoiceControllerTest {
         Taxpayer taxpayer = new Taxpayer(1L, "Firma", 10101010L, 55555L, "Address");
         TaxpayerDto taxpayerDto = new TaxpayerDto(1L, "Firma", 10101010L, 55555L, "Address");
         Invoice invoice = new Invoice(1L, "FV/01", "2002-01-03", taxpayer, "comments", InvoiceCurrency.PLN);
-        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/02", "2002-01-03", taxpayerDto, "comments", BigDecimal.ZERO, InvoiceCurrency.PLN);
+        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/02", "2002-01-03", taxpayerDto, "comments", BigDecimal.ZERO,BigDecimal.ZERO, InvoiceCurrency.PLN);
         when(invoiceService.saveInvoice(ArgumentMatchers.any(Invoice.class))).thenReturn(invoice);
         when(invoiceMapper.mapToInvoiceDto(any())).thenReturn(invoiceDto);
 
@@ -113,7 +113,7 @@ public class InvoiceControllerTest {
         Taxpayer taxpayer = new Taxpayer(1L, "Firma", 10101010L, 55555L, "Address");
         TaxpayerDto taxpayerDto = new TaxpayerDto(1L, "Firma", 10101010L, 55555L, "Address");
         Invoice invoice = new Invoice(1L, "FV/01", "2002-01-03", taxpayer, "comments", InvoiceCurrency.PLN);
-        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/01", "2002-01-03", taxpayerDto, "comments", BigDecimal.ZERO, InvoiceCurrency.PLN);
+        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/01", "2002-01-03", taxpayerDto, "comments", BigDecimal.ZERO,BigDecimal.ZERO, InvoiceCurrency.PLN);
 
         when(invoiceMapper.mapToInvoiceDto(any())).thenReturn(invoiceDto);
         when(invoiceService.getInvoice(anyLong())).thenReturn(Optional.of(invoice));
@@ -132,7 +132,7 @@ public class InvoiceControllerTest {
         Taxpayer taxpayer = new Taxpayer(1L, "Firma", 10101010L, 55555L, "Address");
         TaxpayerDto taxpayerDto = new TaxpayerDto(1L, "Firma", 10101010L, 55555L, "Address");
         Invoice invoice = new Invoice(1L, "FV/01", "2002-01-03", taxpayer, "comments", InvoiceCurrency.PLN);
-        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/01", "2002-01-03", taxpayerDto, "comments", BigDecimal.ZERO, InvoiceCurrency.PLN);
+        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/01", "2002-01-03", taxpayerDto, "comments", BigDecimal.ZERO,BigDecimal.ZERO, InvoiceCurrency.PLN);
 
         List<InvoiceDto> invoiceDtoList = new ArrayList<>();
         invoiceDtoList.add(invoiceDto);

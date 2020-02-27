@@ -18,6 +18,7 @@ public class InvoiceDto {
     private String issueDate;
     private TaxpayerDto taxpayerDto;
     private String comments;
-    private BigDecimal total;
+    private BigDecimal baseTotal;
+    private BigDecimal plnTotal;
     private InvoiceCurrency invoiceCurrency;
 }

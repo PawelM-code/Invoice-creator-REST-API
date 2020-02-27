@@ -31,6 +31,7 @@ public class InvoiceMapper {
                 taxpayerMapper.mapToTaxpayerDto(invoice.getTaxpayer()),
                 invoice.getComments(),
                 invoice.getBaseTotal(),
+                invoice.getPlnTotal(),
                 invoice.getInvoiceCurrency());
     }
 
@@ -43,6 +44,7 @@ public class InvoiceMapper {
                         taxpayerMapper.mapToTaxpayerDto(i.getTaxpayer()),
                         i.getComments(),
                         i.getBaseTotal(),
+                        i.getPlnTotal(),
                         i.getInvoiceCurrency()))
                 .collect(Collectors.toList());
     }
