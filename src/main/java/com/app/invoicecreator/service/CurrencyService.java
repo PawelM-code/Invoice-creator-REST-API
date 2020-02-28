@@ -9,6 +9,8 @@ import com.app.invoicecreator.repository.CurrencyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CurrencyService {
@@ -16,19 +18,17 @@ public class CurrencyService {
     private final CurrencyMapper currencyMapper;
     private final CurrencyRepository currencyRepository;
 
-    public CurrencyDto saveCurrencyRateByCode(String code, String date) {
+    public Currency saveCurrencyRateByCode(String code, String date) {
         Currency currency = currencyRepository.findByCodeAndDate(code, date).orElse(null);
-        CurrencyDto currencyDto;
 
         if (currency == null) {
-            currencyDto = currencyClient.getCurrencyRateByCode(code, date);
-            currency = currencyMapper.mapToCurrency(currencyDto);
+            currency = currencyMapper.mapToCurrency(currencyClient.getCurrencyRateByCode(code, date));
             currencyRepository.save(currency);
-        } else {
-            CurrencyRatesDto[] currencyRatesDto = new CurrencyRatesDto[1];
-            currencyRatesDto[0] = new CurrencyRatesDto("", currency.getMidRate(), date);
-            currencyDto = new CurrencyDto(currency.getId(), currency.getCurrency(), code, currencyRatesDto);
         }
-        return currencyDto;
+        return currency;
+    }
+
+    public List<Currency> getCurrencies() {
+        return currencyRepository.findAll();
     }
 }

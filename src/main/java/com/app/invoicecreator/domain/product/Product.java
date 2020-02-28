@@ -26,7 +26,7 @@ public class Product {
             targetEntity = Item.class,
             mappedBy = "product",
             fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
+            orphanRemoval = true
     )
     private List<Item> items = new ArrayList<>();
 

@@ -28,8 +28,7 @@ public class InvoiceService {
             BigDecimal rate = currencyService.saveCurrencyRateByCode(
                     invoiceCurrency,
                     invoiceDate)
-                    .getRates()[0]
-                    .getMid();
+                    .getMidRate();
             invoice.setPlnTotal(invoice.getBaseTotal().multiply(rate));
         }else {
             invoice.setPlnTotal(invoice.getBaseTotal());
