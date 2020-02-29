@@ -62,12 +62,4 @@ public class Invoice {
         this.comments = comments;
         this.invoiceCurrency = invoiceCurrency;
     }
-
-//    public Invoice(String number, String issueDate, Taxpayer taxpayer, String comments, InvoiceCurrency invoiceCurrency) {
-//        this.number = number;
-//        this.issueDate = issueDate;
-//        this.taxpayer = taxpayer;
-//        this.comments = comments;
-//        this.invoiceCurrency = invoiceCurrency;
-//    }
 }

@@ -1,8 +1,6 @@
 package com.app.invoicecreator.domain.item;
 
 import com.app.invoicecreator.domain.invoice.InvoiceDto;
-import com.app.invoicecreator.domain.product.Product;
-import com.app.invoicecreator.domain.invoice.Invoice;
 import com.app.invoicecreator.domain.product.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

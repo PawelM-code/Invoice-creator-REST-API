@@ -43,7 +43,7 @@ public class CurrencyMapper {
                             currency.getId(),
                             currency.getCurrency(),
                             currency.getCode(),
-                        mapToCurrencyRatesDtoArray(currency))
+                            mapToCurrencyRatesDtoArray(currency))
                 ).collect(Collectors.toList());
     }
 }
