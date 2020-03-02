@@ -19,7 +19,7 @@ public class ItemController {
     private final ItemService itemService;
 
     @PostMapping(value = "/items")
-    public void createItem(@RequestBody ItemDto itemDto) throws InvoiceNotFoundException {
+    public void createItem(@RequestBody ItemDto itemDto){
         itemService.saveItem(itemMapper.mapToItem(itemDto));
     }
 
