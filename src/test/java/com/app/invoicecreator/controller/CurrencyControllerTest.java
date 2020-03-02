@@ -1,7 +1,10 @@
 package com.app.invoicecreator.controller;
 
+import com.app.invoicecreator.domain.currency.Currency;
 import com.app.invoicecreator.domain.currency.CurrencyDto;
 import com.app.invoicecreator.domain.currency.CurrencyRatesDto;
+import com.app.invoicecreator.mapper.CurrencyMapper;
+import com.app.invoicecreator.repository.CurrencyRepository;
 import com.app.invoicecreator.service.CurrencyService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -28,6 +32,8 @@ public class CurrencyControllerTest {
 
     @MockBean
     private CurrencyService currencyService;
+    @MockBean
+    private CurrencyMapper currencyMapper;
 
     @Test
     public void testGetCurrency() throws Exception {
@@ -35,10 +41,12 @@ public class CurrencyControllerTest {
         String code = "EUR";
         String date = "2020-01-09";
         CurrencyRatesDto[] currencyRatesDto = new CurrencyRatesDto[1];
-        currencyRatesDto[0] = new CurrencyRatesDto("",new BigDecimal(4.26),date);
+        currencyRatesDto[0] = new CurrencyRatesDto("", new BigDecimal(4.26), date);
         CurrencyDto currencyDto = new CurrencyDto(1L,"euro",code,currencyRatesDto);
+        Currency currency = new Currency(1L, "euro", code, date, new BigDecimal(4.26));
 
-        when(currencyService.saveCurrencyRateByCode(code,date)).thenReturn(currencyDto);
+        when(currencyMapper.mapToCurrencyDto(currency)).thenReturn(currencyDto);
+        when(currencyService.saveCurrencyRateByCode(code, date)).thenReturn(currency);
 
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders

@@ -8,9 +8,11 @@ import com.app.invoicecreator.domain.taxpayer.TaxpayerDto;
 import com.app.invoicecreator.mapper.InvoiceMapper;
 import com.app.invoicecreator.service.InvoiceService;
 import com.google.gson.Gson;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -37,21 +39,59 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class InvoiceControllerTest {
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private InvoiceService invoiceService;
-
     @MockBean
     private InvoiceMapper invoiceMapper;
+    @Mock
+    private Taxpayer taxpayer;
+    @Mock
+    private TaxpayerDto taxpayerDto;
+    @Mock
+    private Invoice invoice;
+    @Mock
+    private InvoiceDto invoiceDto;
+    @Mock
+    private InvoiceDto invoiceDto2;
+
+    @Before
+    public void initSetup() {
+        //Given
+        taxpayer = new Taxpayer(1L, "Firma", 10101010L, 55555L, "Address");
+        taxpayerDto = new TaxpayerDto(1L, "Firma", 10101010L, 55555L, "Address");
+        invoice = Invoice.builder()
+                .id(1L)
+                .number("FV/01")
+                .issueDate("2002-01-03")
+                .taxpayer(taxpayer)
+                .comments("comments")
+                .invoiceCurrency(InvoiceCurrency.PLN)
+                .build();
+        invoiceDto = InvoiceDto.builder()
+                .id(1L)
+                .number("FV/01")
+                .issueDate("2002-01-03")
+                .taxpayerDto(taxpayerDto)
+                .comments("comments")
+                .baseTotal(BigDecimal.ZERO)
+                .plnTotal(BigDecimal.ZERO)
+                .invoiceCurrency(InvoiceCurrency.PLN)
+                .build();
+        invoiceDto2 = InvoiceDto.builder()
+                .id(1L)
+                .number("FV/02")
+                .issueDate("2002-01-03")
+                .taxpayerDto(taxpayerDto)
+                .comments("comments")
+                .baseTotal(BigDecimal.ZERO)
+                .plnTotal(BigDecimal.ZERO)
+                .invoiceCurrency(InvoiceCurrency.PLN)
+                .build();
+    }
 
     @Test
     public void testCreateInvoice() throws Exception {
         //Given
-        Taxpayer taxpayer = new Taxpayer(1L, "Firma", 10101010L, 55555L, "Address");
-        TaxpayerDto taxpayerDto = new TaxpayerDto(1L, "Firma", 10101010L, 55555L, "Address");
-        Invoice invoice = new Invoice(1L, "FV/01", "2002-01-03", taxpayer, "comments", InvoiceCurrency.PLN);
-        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/01", "2002-01-03", taxpayerDto, "comments",BigDecimal.ZERO,BigDecimal.ZERO, InvoiceCurrency.PLN);
-
         when(invoiceMapper.mapToInvoice(any())).thenReturn(invoice);
 
         Gson gson = new Gson();
@@ -78,12 +118,8 @@ public class InvoiceControllerTest {
     @Test
     public void testUpdateInvoice() throws Exception {
         //Given
-        Taxpayer taxpayer = new Taxpayer(1L, "Firma", 10101010L, 55555L, "Address");
-        TaxpayerDto taxpayerDto = new TaxpayerDto(1L, "Firma", 10101010L, 55555L, "Address");
-        Invoice invoice = new Invoice(1L, "FV/01", "2002-01-03", taxpayer, "comments", InvoiceCurrency.PLN);
-        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/02", "2002-01-03", taxpayerDto, "comments", BigDecimal.ZERO,BigDecimal.ZERO, InvoiceCurrency.PLN);
         when(invoiceService.saveInvoice(ArgumentMatchers.any(Invoice.class))).thenReturn(invoice);
-        when(invoiceMapper.mapToInvoiceDto(any())).thenReturn(invoiceDto);
+        when(invoiceMapper.mapToInvoiceDto(any())).thenReturn(invoiceDto2);
 
         Gson gson = new Gson();
         String jsonContent = gson.toJson(invoiceDto);
@@ -110,11 +146,6 @@ public class InvoiceControllerTest {
     @Test
     public void testGetInvoice() throws Exception {
         //Given
-        Taxpayer taxpayer = new Taxpayer(1L, "Firma", 10101010L, 55555L, "Address");
-        TaxpayerDto taxpayerDto = new TaxpayerDto(1L, "Firma", 10101010L, 55555L, "Address");
-        Invoice invoice = new Invoice(1L, "FV/01", "2002-01-03", taxpayer, "comments", InvoiceCurrency.PLN);
-        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/01", "2002-01-03", taxpayerDto, "comments", BigDecimal.ZERO,BigDecimal.ZERO, InvoiceCurrency.PLN);
-
         when(invoiceMapper.mapToInvoiceDto(any())).thenReturn(invoiceDto);
         when(invoiceService.getInvoice(anyLong())).thenReturn(Optional.of(invoice));
 
@@ -127,13 +158,8 @@ public class InvoiceControllerTest {
     }
 
     @Test
-    public void testGetTasksList() throws Exception {
+    public void testGetInvoicesList() throws Exception {
         //Given
-        Taxpayer taxpayer = new Taxpayer(1L, "Firma", 10101010L, 55555L, "Address");
-        TaxpayerDto taxpayerDto = new TaxpayerDto(1L, "Firma", 10101010L, 55555L, "Address");
-        Invoice invoice = new Invoice(1L, "FV/01", "2002-01-03", taxpayer, "comments", InvoiceCurrency.PLN);
-        InvoiceDto invoiceDto = new InvoiceDto(1L, "FV/01", "2002-01-03", taxpayerDto, "comments", BigDecimal.ZERO,BigDecimal.ZERO, InvoiceCurrency.PLN);
-
         List<InvoiceDto> invoiceDtoList = new ArrayList<>();
         invoiceDtoList.add(invoiceDto);
         List<Invoice> invoiceList = new ArrayList<>();

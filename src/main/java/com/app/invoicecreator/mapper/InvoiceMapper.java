@@ -14,38 +14,41 @@ public class InvoiceMapper {
     private final TaxpayerMapper taxpayerMapper;
 
     public Invoice mapToInvoice(InvoiceDto invoiceDto) {
-        return new Invoice(
-                invoiceDto.getId(),
-                invoiceDto.getNumber(),
-                invoiceDto.getIssueDate(),
-                taxpayerMapper.mapToTaxpayer(invoiceDto.getTaxpayerDto()),
-                invoiceDto.getComments(),
-                invoiceDto.getInvoiceCurrency());
+        return Invoice.builder()
+                .id(invoiceDto.getId())
+                .number(invoiceDto.getNumber())
+                .issueDate(invoiceDto.getIssueDate())
+                .taxpayer(taxpayerMapper.mapToTaxpayer(invoiceDto.getTaxpayerDto()))
+                .comments(invoiceDto.getComments())
+                .invoiceCurrency(invoiceDto.getInvoiceCurrency())
+                .build();
     }
 
     public InvoiceDto mapToInvoiceDto(Invoice invoice) {
-        return new InvoiceDto(
-                invoice.getId(),
-                invoice.getNumber(),
-                invoice.getIssueDate(),
-                taxpayerMapper.mapToTaxpayerDto(invoice.getTaxpayer()),
-                invoice.getComments(),
-                invoice.getBaseTotal(),
-                invoice.getPlnTotal(),
-                invoice.getInvoiceCurrency());
+        return InvoiceDto.builder()
+                .id(invoice.getId())
+                .number(invoice.getNumber())
+                .issueDate(invoice.getIssueDate())
+                .taxpayerDto(taxpayerMapper.mapToTaxpayerDto(invoice.getTaxpayer()))
+                .comments(invoice.getComments())
+                .baseTotal(invoice.getBaseTotal())
+                .plnTotal(invoice.getPlnTotal())
+                .invoiceCurrency(invoice.getInvoiceCurrency())
+                .build();
     }
 
     public List<InvoiceDto> mapToInvoiceDtoList(List<Invoice> invoiceList) {
         return invoiceList.stream()
-                .map(i -> new InvoiceDto(
-                        i.getId(),
-                        i.getNumber(),
-                        i.getIssueDate(),
-                        taxpayerMapper.mapToTaxpayerDto(i.getTaxpayer()),
-                        i.getComments(),
-                        i.getBaseTotal(),
-                        i.getPlnTotal(),
-                        i.getInvoiceCurrency()))
+                .map(i -> InvoiceDto.builder()
+                        .id(i.getId())
+                        .number(i.getNumber())
+                        .issueDate(i.getIssueDate())
+                        .taxpayerDto(taxpayerMapper.mapToTaxpayerDto(i.getTaxpayer()))
+                        .comments(i.getComments())
+                        .baseTotal(i.getBaseTotal())
+                        .plnTotal(i.getPlnTotal())
+                        .invoiceCurrency(i.getInvoiceCurrency())
+                        .build())
                 .collect(Collectors.toList());
     }
 }

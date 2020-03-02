@@ -120,8 +120,22 @@ public class RepositoriesTestSuite {
         //Given
         Product product = new Product("Samsung Z flip");
         Taxpayer taxpayer = new Taxpayer("Firma", 666666666L, 555555L, "Powstańców 33");
-        Invoice invoice = new Invoice(1L,"FV/01/2020", "2020-02-17", taxpayer, "comments", InvoiceCurrency.PLN);
-        Invoice invoice2 = new Invoice(2L,"FV/02/2020", "2020-02-18", taxpayer, "comments2", InvoiceCurrency.EUR);
+        Invoice invoice = Invoice.builder()
+                .id(1L)
+                .number("FV/01/2020")
+                .issueDate("2020-02-17")
+                .taxpayer(taxpayer)
+                .comments("comments")
+                .invoiceCurrency(InvoiceCurrency.PLN)
+                .build();
+        Invoice invoice2 = Invoice.builder()
+                .id(2L)
+                .number("FV/02/2020")
+                .issueDate("2020-02-18")
+                .taxpayer(taxpayer)
+                .comments("comments2")
+                .invoiceCurrency(InvoiceCurrency.EUR)
+                .build();
 
         productRepository.save(product);
         taxpayerRepository.save(taxpayer);

@@ -2,16 +2,15 @@ package com.app.invoicecreator.domain.invoice;
 
 import com.app.invoicecreator.domain.taxpayer.TaxpayerDto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Builder
 public class InvoiceDto {
     private Long id;
     private String number;

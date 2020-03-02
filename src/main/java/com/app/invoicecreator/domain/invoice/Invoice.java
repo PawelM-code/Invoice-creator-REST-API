@@ -2,10 +2,7 @@ package com.app.invoicecreator.domain.invoice;
 
 import com.app.invoicecreator.domain.item.Item;
 import com.app.invoicecreator.domain.taxpayer.Taxpayer;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,9 +11,10 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
+@Builder
 @Table(name = "invoices")
 public class Invoice {
     @Id
@@ -39,6 +37,7 @@ public class Invoice {
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
     )
+    @Builder.Default
     private List<Item> items = new ArrayList<>();
 
     @Column(name = "comments")
@@ -54,12 +53,12 @@ public class Invoice {
     @Column(name = "currency")
     private InvoiceCurrency invoiceCurrency;
 
-    public Invoice(Long id, String number, String issueDate, Taxpayer taxpayer, String comments, InvoiceCurrency invoiceCurrency) {
-        this.id = id;
-        this.number = number;
-        this.issueDate = issueDate;
-        this.taxpayer = taxpayer;
-        this.comments = comments;
-        this.invoiceCurrency = invoiceCurrency;
-    }
+//    public Invoice(Long id, String number, String issueDate, Taxpayer taxpayer, String comments, InvoiceCurrency invoiceCurrency) {
+//        this.id = id;
+//        this.number = number;
+//        this.issueDate = issueDate;
+//        this.taxpayer = taxpayer;
+//        this.comments = comments;
+//        this.invoiceCurrency = invoiceCurrency;
+//    }
 }
