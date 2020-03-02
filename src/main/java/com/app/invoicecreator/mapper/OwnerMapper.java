@@ -2,7 +2,9 @@ package com.app.invoicecreator.mapper;
 
 import com.app.invoicecreator.domain.owner.Owner;
 import com.app.invoicecreator.domain.owner.OwnerDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OwnerMapper {
     public OwnerDto mapToOwnerDto(Owner owner){
         return new OwnerDto(
