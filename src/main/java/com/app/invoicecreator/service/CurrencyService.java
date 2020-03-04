@@ -2,8 +2,6 @@ package com.app.invoicecreator.service;
 
 import com.app.invoicecreator.client.currencies.CurrencyClient;
 import com.app.invoicecreator.domain.currency.Currency;
-import com.app.invoicecreator.domain.currency.CurrencyDto;
-import com.app.invoicecreator.domain.currency.CurrencyRatesDto;
 import com.app.invoicecreator.mapper.CurrencyMapper;
 import com.app.invoicecreator.repository.CurrencyRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +16,14 @@ public class CurrencyService {
     private final CurrencyMapper currencyMapper;
     private final CurrencyRepository currencyRepository;
 
-    public Currency saveCurrencyRateByCode(String code, String date) {
-        Currency currency = currencyRepository.findByCodeAndDate(code, date).orElse(null);
-
-        if (currency == null) {
-            currency = currencyMapper.mapToCurrency(currencyClient.getCurrencyRateByCode(code, date));
+    public void saveCurrencyRate(Currency currency) {
+        if (currencyRepository.findByCodeAndDate(currency.getCode(), currency.getDate()).orElse(null) == null) {
             currencyRepository.save(currency);
         }
-        return currency;
+    }
+
+    public Currency getCurrencyRate(String code, String date) {
+        return currencyMapper.mapToCurrency(currencyClient.getCurrencyRateByCode(code, date));
     }
 
     public List<Currency> getCurrencies() {

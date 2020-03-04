@@ -25,7 +25,7 @@ public class InvoiceService {
         String invoiceCurrency = invoice.getInvoiceCurrency().toString();
         String invoiceDate = invoice.getIssueDate();
         if (!invoiceCurrency.equals("PLN")) {
-            BigDecimal rate = currencyService.saveCurrencyRateByCode(
+            BigDecimal rate = currencyService.getCurrencyRate(
                     invoiceCurrency,
                     invoiceDate)
                     .getMidRate();

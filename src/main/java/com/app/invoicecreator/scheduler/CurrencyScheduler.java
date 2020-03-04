@@ -1,5 +1,6 @@
 package com.app.invoicecreator.scheduler;
 
+import com.app.invoicecreator.domain.currency.Currency;
 import com.app.invoicecreator.domain.invoice.InvoiceCurrency;
 import com.app.invoicecreator.service.CurrencyService;
 import lombok.RequiredArgsConstructor;
@@ -14,18 +15,21 @@ import java.time.format.DateTimeFormatter;
 public class CurrencyScheduler {
     private final CurrencyService currencyService;
 
-    @Scheduled(cron = "0 0 13 * * *")
+    @Scheduled(cron = "0 0 15 * * *", zone = "Europe/Warsaw")
     public void saveCurrencies() {
         String localDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-        currencyService.saveCurrencyRateByCode(
+        Currency currencyEUR = currencyService.getCurrencyRate(
                 InvoiceCurrency.EUR.toString(),
                 localDate);
-        currencyService.saveCurrencyRateByCode(
+        Currency currencyUSD = currencyService.getCurrencyRate(
                 InvoiceCurrency.USD.toString(),
                 localDate);
-        currencyService.saveCurrencyRateByCode(
+        Currency currencyCHF = currencyService.getCurrencyRate(
                 InvoiceCurrency.CHF.toString(),
                 localDate);
+
+        currencyService.saveCurrencyRate(currencyEUR);
+        currencyService.saveCurrencyRate(currencyUSD);
+        currencyService.saveCurrencyRate(currencyCHF);
     }
 }

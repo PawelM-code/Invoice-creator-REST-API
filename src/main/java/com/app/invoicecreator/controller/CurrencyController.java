@@ -1,8 +1,8 @@
 package com.app.invoicecreator.controller;
 
+import com.app.invoicecreator.domain.currency.Currency;
 import com.app.invoicecreator.domain.currency.CurrencyDto;
-import com.app.invoicecreator.mapper.CurrencyMapper;
-import com.app.invoicecreator.service.CurrencyService;
+import com.app.invoicecreator.facade.currencies.CurrencyFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,16 +13,20 @@ import java.util.List;
 @RequestMapping("/v1")
 @RequiredArgsConstructor
 public class CurrencyController {
-    private final CurrencyService currencyService;
-    private final CurrencyMapper currencyMapper;
+    private final CurrencyFacade currencyFacade;
 
     @GetMapping(value = "/currency/A/{code}/{date}")
-    public CurrencyDto getCurrencyRate(@PathVariable String code, @PathVariable String date) {
-        return currencyMapper.mapToCurrencyDto(currencyService.saveCurrencyRateByCode(code, date));
+    public CurrencyDto fetchCurrencyRate(@PathVariable String code, @PathVariable String date) {
+        return currencyFacade.fetchCurrencyRate(code, date);
+    }
+
+    @PostMapping(value = "/currency/A/")
+    public void saveCurrencyRate(@RequestBody Currency currency) {
+        currencyFacade.saveCurrency(currency);
     }
 
     @GetMapping(value = "/currency")
     public List<CurrencyDto> getCurrencies() {
-       return currencyMapper.mapToCurrencyDtoList(currencyService.getCurrencies());
+        return currencyFacade.getCurrencies();
     }
 }
