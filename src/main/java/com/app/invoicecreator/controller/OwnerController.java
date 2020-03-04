@@ -7,6 +7,8 @@ import com.app.invoicecreator.service.OwnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1")
@@ -25,9 +27,13 @@ public class OwnerController {
         return ownerMapper.mapToOwnerDto(ownerService.findById(id).orElseThrow(OwnerNotFoundException::new));
     }
 
+    @GetMapping(value = "/owner")
+    public List<OwnerDto> getOwners() {
+        return ownerMapper.mapToOwnerDtoList(ownerService.getOwners());
+    }
+
     @PutMapping(value = "/owner")
     public OwnerDto updateOwner(@RequestBody OwnerDto ownerDto) {
         return ownerMapper.mapToOwnerDto(ownerService.save(ownerMapper.mapToOwner(ownerDto)));
-
     }
 }
