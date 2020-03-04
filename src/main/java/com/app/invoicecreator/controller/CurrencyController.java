@@ -21,8 +21,8 @@ public class CurrencyController {
     }
 
     @PostMapping(value = "/currency/A/")
-    public void saveCurrencyRate(@RequestBody Currency currency) {
-        currencyFacade.saveCurrency(currency);
+    public void saveCurrencyRate(@RequestBody CurrencyDto currencyDto) {
+        currencyFacade.saveCurrency(currencyDto);
     }
 
     @GetMapping(value = "/currency")

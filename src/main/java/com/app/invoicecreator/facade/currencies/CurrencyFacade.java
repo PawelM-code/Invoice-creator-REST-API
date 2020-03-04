@@ -23,7 +23,7 @@ public class CurrencyFacade {
         return currencyMapper.mapToCurrencyDtoList(currencyService.getCurrencies());
     }
 
-    public void saveCurrency(Currency currency){
-        currencyService.saveCurrencyRate(currency);
+    public void saveCurrency(CurrencyDto currencyDto){
+        currencyService.saveCurrencyRate(currencyMapper.mapToCurrency(currencyDto));
     }
 }

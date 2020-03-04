@@ -29,8 +29,6 @@ public class CurrencyControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CurrencyService currencyService;
-    @MockBean
     private CurrencyFacade currencyFacade;
 
     @Test
