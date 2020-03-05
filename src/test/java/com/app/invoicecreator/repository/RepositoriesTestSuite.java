@@ -4,6 +4,7 @@ import com.app.invoicecreator.domain.currency.Currency;
 import com.app.invoicecreator.domain.invoice.Invoice;
 import com.app.invoicecreator.domain.invoice.InvoiceCurrency;
 import com.app.invoicecreator.domain.item.Item;
+import com.app.invoicecreator.domain.owner.Owner;
 import com.app.invoicecreator.domain.product.Product;
 import com.app.invoicecreator.domain.taxpayer.Taxpayer;
 import org.hamcrest.Matchers;
@@ -33,6 +34,8 @@ public class RepositoriesTestSuite {
     ProductRepository productRepository;
     @Autowired
     CurrencyRepository currencyRepository;
+    @Autowired
+    OwnerRepository ownerRepository;
 
     @Test
     public void testProductSave() {
@@ -45,6 +48,7 @@ public class RepositoriesTestSuite {
 
         //Then
         assertEquals(product, productRepository.getOne(id));
+        assertEquals("Samsung Z flip", productRepository.getOne(id).getDescription());
     }
 
     @Test
@@ -92,7 +96,9 @@ public class RepositoriesTestSuite {
 
         //Then
         assertEquals(item, itemRepository.getOne(id));
-
+        assertTrue(itemRepository.findById(id).isPresent());
+        assertEquals(10, itemRepository.findById(id).get().getQuantity());
+        assertEquals(new BigDecimal(100.50), itemRepository.findById(id).get().getPrice());
         assertThat(new BigDecimal(1005), Matchers.comparesEqualTo(itemRepository
                 .getOne(id)
                 .getValue()));
@@ -167,5 +173,35 @@ public class RepositoriesTestSuite {
 
         //Then
         assertEquals(currency, currencyRepository.getOne(id));
+        assertEquals("euro",currencyRepository.getOne(id).getCurrency());
+        assertEquals("EUR",currencyRepository.getOne(id).getCode());
+        assertEquals("2020-02-17",currencyRepository.getOne(id).getDate());
+        assertEquals(new BigDecimal(4.26),currencyRepository.getOne(id).getMidRate());
+    }
+
+    @Test
+    public void testOwnerRepository() {
+        //Given
+        Owner owner = new Owner(
+                1L,
+                "MyCompany",
+                111L,
+                22222L,
+                "ul. Calineczki",
+                "12-1212-1212-1212",
+                "test@test.test");
+
+        //When
+        ownerRepository.save(owner);
+
+        //Then
+        assertTrue(ownerRepository.findById(1L).isPresent());
+        assertEquals("MyCompany", ownerRepository.findById(1L).get().getName());
+        assertEquals(111L, (long) ownerRepository.findById(1L).get().getNip());
+        assertEquals(22222L, (long) ownerRepository.findById(1L).get().getRegon());
+        assertEquals("ul. Calineczki", ownerRepository.findById(1L).get().getWorkingAddress());
+        assertEquals("12-1212-1212-1212", ownerRepository.findById(1L).get().getBankAccount());
+        assertEquals("test@test.test", ownerRepository.findById(1L).get().getEmail());
+        assertEquals(1, ownerRepository.findAll().size());
     }
 }

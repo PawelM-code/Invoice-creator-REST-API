@@ -116,7 +116,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void testGetTasksList() throws Exception {
+    public void testGetProductsList() throws Exception {
         //Given
         List<ProductDto> productDtoList = new ArrayList<>();
         productDtoList.add(new ProductDto(1L, "tv"));

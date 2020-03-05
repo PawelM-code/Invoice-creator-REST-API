@@ -26,7 +26,7 @@ public class TaxpayerController {
     }
 
     @GetMapping(value = "/taxpayers")
-    public List<TaxpayerDto> getTaxpayer() {
+    public List<TaxpayerDto> getTaxpayers() {
         return taxpayerFacade.getTaxpayers();
     }
 

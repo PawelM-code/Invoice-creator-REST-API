@@ -1,6 +1,5 @@
 package com.app.invoicecreator.controller;
 
-import com.app.invoicecreator.domain.currency.Currency;
 import com.app.invoicecreator.domain.currency.CurrencyDto;
 import com.app.invoicecreator.facade.currencies.CurrencyFacade;
 import lombok.RequiredArgsConstructor;
