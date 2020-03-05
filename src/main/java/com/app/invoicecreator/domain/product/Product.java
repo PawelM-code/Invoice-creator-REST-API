@@ -22,6 +22,9 @@ public class Product {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "vat")
+    private int vat;
+
     @OneToMany(
             targetEntity = Item.class,
             mappedBy = "product",
@@ -30,12 +33,15 @@ public class Product {
     )
     private List<Item> items = new ArrayList<>();
 
-    public Product(Long id, String description) {
+    public Product(Long id, String description, int vat) {
         this.id = id;
         this.description = description;
+        this.vat = vat;
     }
 
-    public Product(String description) {
+    public Product(String description, int vat) {
         this.description = description;
+        this.vat = vat;
     }
+
 }

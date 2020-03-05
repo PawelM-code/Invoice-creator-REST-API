@@ -19,7 +19,7 @@ public class ItemMapper {
                 itemDto.getId(),
                 productMapper.mapToProduct(itemDto.getProductDto()),
                 invoiceMapper.mapToInvoice(itemDto.getInvoiceDto()),
-                itemDto.getPrice(),
+                itemDto.getNetPrice(),
                 itemDto.getQuantity());
     }
 
@@ -28,7 +28,8 @@ public class ItemMapper {
                 item.getId(),
                 productMapper.mapToProductDto(item.getProduct()),
                 invoiceMapper.mapToInvoiceDto(item.getInvoice()),
-                item.getPrice(),
+                item.getNetPrice(),
+                item.getGrossPrice(),
                 item.getQuantity(),
                 item.getValue());
     }
@@ -39,7 +40,7 @@ public class ItemMapper {
                         i.getId(),
                         productMapper.mapToProduct(i.getProductDto()),
                         invoiceMapper.mapToInvoice(i.getInvoiceDto()),
-                        i.getPrice(),
+                        i.getNetPrice(),
                         i.getQuantity()))
                 .collect(Collectors.toList());
     }
@@ -50,7 +51,8 @@ public class ItemMapper {
                         i.getId(),
                         productMapper.mapToProductDto(i.getProduct()),
                         invoiceMapper.mapToInvoiceDto(i.getInvoice()),
-                        i.getPrice(),
+                        i.getNetPrice(),
+                        i.getGrossPrice(),
                         i.getQuantity(),
                         i.getValue()))
                 .collect(Collectors.toList());

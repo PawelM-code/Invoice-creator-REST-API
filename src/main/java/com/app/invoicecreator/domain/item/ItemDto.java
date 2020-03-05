@@ -17,7 +17,8 @@ public class ItemDto {
     private Long id;
     private ProductDto productDto;
     private InvoiceDto invoiceDto;
-    private BigDecimal price;
+    private BigDecimal netPrice;
+    private BigDecimal grossPrice;
     private int quantity;
     private BigDecimal value;
 }

@@ -20,4 +20,5 @@ public class InvoiceDto {
     private BigDecimal baseTotal;
     private BigDecimal plnTotal;
     private InvoiceCurrency invoiceCurrency;
+    private String dateOfPayment;
 }

@@ -14,24 +14,32 @@ public class ProductMapper {
     public Product mapToProduct(ProductDto productDto) {
         return new Product(
                 productDto.getId(),
-                productDto.getDescription());
+                productDto.getDescription(),
+                productDto.getVat());
     }
 
     public ProductDto mapToProductDto(Product product) {
         return new ProductDto(
                 product.getId(),
-                product.getDescription());
+                product.getDescription(),
+                product.getVat());
     }
 
     public List<Product> mapToProductList(List<ProductDto> productDtoList) {
         return productDtoList.stream()
-                .map(p -> new Product(p.getId(), p.getDescription()))
+                .map(p -> new Product(
+                        p.getId(),
+                        p.getDescription(),
+                        p.getVat()))
                 .collect(Collectors.toList());
     }
 
     public List<ProductDto> mapToProductDtoList(List<Product> productDtoList) {
         return productDtoList.stream()
-                .map(p -> new ProductDto(p.getId(), p.getDescription()))
+                .map(p -> new ProductDto(
+                        p.getId(),
+                        p.getDescription(),
+                        p.getVat()))
                 .collect(Collectors.toList());
     }
 }

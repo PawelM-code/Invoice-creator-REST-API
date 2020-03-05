@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -40,7 +41,7 @@ public class RepositoriesTestSuite {
     @Test
     public void testProductSave() {
         //Given
-        Product product = new Product("Samsung Z flip");
+        Product product = new Product("Samsung Z flip", 23);
 
         //When
         productRepository.save(product);
@@ -54,8 +55,8 @@ public class RepositoriesTestSuite {
     @Test
     public void testGetProducts() {
         //Given
-        Product product1 = new Product("Samsung Z flip");
-        Product product2 = new Product("Samsung Z2 flip");
+        Product product1 = new Product("Samsung Z flip", 23);
+        Product product2 = new Product("Samsung Z2 flip", 23);
         productRepository.save(product1);
         productRepository.save(product2);
 
@@ -69,8 +70,8 @@ public class RepositoriesTestSuite {
     @Test
     public void testDeleteProduct() {
         //Given
-        Product product1 = new Product("Samsung Z flip");
-        Product product2 = new Product("Samsung Z2 flip");
+        Product product1 = new Product( "Samsung Z flip", 23);
+        Product product2 = new Product( "Samsung Z2 flip", 23);
         productRepository.save(product1);
         productRepository.save(product2);
         Long id = product1.getId();
@@ -86,22 +87,20 @@ public class RepositoriesTestSuite {
     @Test
     public void testItemSave() {
         //Given
-        Product product = new Product("Samsung Z flip");
-        Item item = new Item(product, new BigDecimal(100.50), 10);
+        Product product = new Product("Samsung Z flip", 23);
         productRepository.save(product);
+        Invoice invoice = Invoice.builder().build();
+        Item item = new Item(1L, product, invoice, new BigDecimal(100), 10);
 
         //When
         itemRepository.save(item);
-        Long id = item.getId();
 
         //Then
-        assertEquals(item, itemRepository.getOne(id));
-        assertTrue(itemRepository.findById(id).isPresent());
-        assertEquals(10, itemRepository.findById(id).get().getQuantity());
-        assertEquals(new BigDecimal(100.50), itemRepository.findById(id).get().getPrice());
-        assertThat(new BigDecimal(1005), Matchers.comparesEqualTo(itemRepository
-                .getOne(id)
-                .getValue()));
+        assertTrue(itemRepository.findById(1L).isPresent());
+        assertEquals(10, itemRepository.findById(1L).get().getQuantity());
+        assertEquals(new BigDecimal(100), itemRepository.findById(1L).get().getNetPrice());
+        assertThat(new BigDecimal(1230.00), Matchers.comparesEqualTo(itemRepository.getOne(1L).getValue()));
+        assertThat(new BigDecimal(123), Matchers.comparesEqualTo(itemRepository.findById(1L).get().getGrossPrice()));
     }
 
     @Test
@@ -124,7 +123,7 @@ public class RepositoriesTestSuite {
     @Test
     public void testInvoiceRepository() {
         //Given
-        Product product = new Product("Samsung Z flip");
+        Product product = new Product(1L, "Samsung Z flip", 23);
         Taxpayer taxpayer = new Taxpayer("Firma", 666666666L, 555555L, "Powstańców 33");
         Invoice invoice = Invoice.builder()
                 .id(1L)
@@ -133,6 +132,7 @@ public class RepositoriesTestSuite {
                 .taxpayer(taxpayer)
                 .comments("comments")
                 .invoiceCurrency(InvoiceCurrency.PLN)
+                .dateOfPayment("2020-02-27")
                 .build();
         Invoice invoice2 = Invoice.builder()
                 .id(2L)
@@ -141,6 +141,7 @@ public class RepositoriesTestSuite {
                 .taxpayer(taxpayer)
                 .comments("comments2")
                 .invoiceCurrency(InvoiceCurrency.EUR)
+                .dateOfPayment("2020-02-28")
                 .build();
 
         productRepository.save(product);
@@ -173,10 +174,10 @@ public class RepositoriesTestSuite {
 
         //Then
         assertEquals(currency, currencyRepository.getOne(id));
-        assertEquals("euro",currencyRepository.getOne(id).getCurrency());
-        assertEquals("EUR",currencyRepository.getOne(id).getCode());
-        assertEquals("2020-02-17",currencyRepository.getOne(id).getDate());
-        assertEquals(new BigDecimal(4.26),currencyRepository.getOne(id).getMidRate());
+        assertEquals("euro", currencyRepository.getOne(id).getCurrency());
+        assertEquals("EUR", currencyRepository.getOne(id).getCode());
+        assertEquals("2020-02-17", currencyRepository.getOne(id).getDate());
+        assertEquals(new BigDecimal(4.26), currencyRepository.getOne(id).getMidRate());
     }
 
     @Test

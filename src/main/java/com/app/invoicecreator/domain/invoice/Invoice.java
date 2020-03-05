@@ -53,12 +53,6 @@ public class Invoice {
     @Column(name = "currency")
     private InvoiceCurrency invoiceCurrency;
 
-//    public Invoice(Long id, String number, String issueDate, Taxpayer taxpayer, String comments, InvoiceCurrency invoiceCurrency) {
-//        this.id = id;
-//        this.number = number;
-//        this.issueDate = issueDate;
-//        this.taxpayer = taxpayer;
-//        this.comments = comments;
-//        this.invoiceCurrency = invoiceCurrency;
-//    }
+    @Column(name = "dateOfPayment")
+    private String dateOfPayment;
 }

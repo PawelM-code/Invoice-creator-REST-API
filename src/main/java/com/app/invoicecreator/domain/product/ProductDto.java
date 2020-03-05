@@ -12,4 +12,5 @@ import lombok.Setter;
 public class ProductDto {
     private Long id;
     private String description;
+    private int vat;
 }

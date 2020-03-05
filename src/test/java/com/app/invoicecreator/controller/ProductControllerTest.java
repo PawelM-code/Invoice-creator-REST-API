@@ -44,8 +44,8 @@ public class ProductControllerTest {
     @Test
     public void testCreateProduct() throws Exception {
         //Given
-        Product product = new Product(1L, "tv");
-        ProductDto productDto = new ProductDto(1L, "tv");
+        Product product = new Product(1L, "tv", 23);
+        ProductDto productDto = new ProductDto(1L, "tv", 23);
         when(productMapper.mapToProduct(any())).thenReturn(product);
 
         Gson gson = new Gson();
@@ -72,8 +72,8 @@ public class ProductControllerTest {
     @Test
     public void testUpdateProduct() throws Exception {
         //Given
-        Product product = new Product(1L, "tv");
-        ProductDto productDto = new ProductDto(1L, "tv2");
+        Product product = new Product(1L, "tv", 23);
+        ProductDto productDto = new ProductDto(1L, "tv2", 23);
         when(productService.saveProduct(ArgumentMatchers.any(Product.class))).thenReturn(product);
         when(productMapper.mapToProductDto(any())).thenReturn(productDto);
 
@@ -102,8 +102,8 @@ public class ProductControllerTest {
     @Test
     public void testGetProduct() throws Exception {
         //Given
-        Product product = new Product(1L, "tv");
-        ProductDto productDto = new ProductDto(1L, "tv");
+        Product product = new Product(1L, "tv", 23);
+        ProductDto productDto = new ProductDto(1L, "tv", 23);
         when(productMapper.mapToProductDto(any())).thenReturn(productDto);
         when(productService.getProduct(anyLong())).thenReturn(Optional.of(product));
 
@@ -119,9 +119,9 @@ public class ProductControllerTest {
     public void testGetProductsList() throws Exception {
         //Given
         List<ProductDto> productDtoList = new ArrayList<>();
-        productDtoList.add(new ProductDto(1L, "tv"));
+        productDtoList.add(new ProductDto(1L, "tv", 23));
         List<Product> productList = new ArrayList<>();
-        productList.add(new Product(1L, "tv"));
+        productList.add(new Product(1L, "tv", 23));
 
         when(productService.getProducts()).thenReturn(productList);
         when(productMapper.mapToProductDtoList(any())).thenReturn(productDtoList);

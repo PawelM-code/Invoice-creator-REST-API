@@ -88,10 +88,10 @@ public class ItemControllerTest {
                 .plnTotal(BigDecimal.ZERO)
                 .invoiceCurrency(InvoiceCurrency.PLN)
                 .build();
-        product = new Product(1L, "TV");
-        productDto = new ProductDto(1L, "TV");
+        product = new Product(1L, "TV", 23);
+        productDto = new ProductDto(1L, "TV", 23);
         item = new Item(1L,product,invoice,new BigDecimal(100),10);
-        itemDto = new ItemDto(1L,productDto,invoiceDto,new BigDecimal(100),10,new BigDecimal(1000));
+        itemDto = new ItemDto(1L,productDto,invoiceDto,new BigDecimal(100),new BigDecimal(123),10,new BigDecimal(1000));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class ItemControllerTest {
                 .andExpect(jsonPath("$.productDto.description", is("TV")))
                 .andExpect(jsonPath("$.invoiceDto.number", is("FV/01")))
                 .andExpect(jsonPath("$.invoiceDto.taxpayerDto.name", is("Firma")))
-                .andExpect(jsonPath("$.price", is(100)))
+                .andExpect(jsonPath("$.grossPrice", is(123)))
                 .andDo(print());
     }
 
@@ -162,7 +162,7 @@ public class ItemControllerTest {
                 .andExpect(jsonPath("$[0].productDto.description", is("TV")))
                 .andExpect(jsonPath("$[0].invoiceDto.number", is("FV/01")))
                 .andExpect(jsonPath("$[0].invoiceDto.taxpayerDto.name", is("Firma")))
-                .andExpect(jsonPath("$[0].price", is(100)));
+                .andExpect(jsonPath("$[0].grossPrice", is(123)));
     }
 
     @Test
@@ -184,6 +184,6 @@ public class ItemControllerTest {
                 .andExpect(jsonPath("$[0].invoiceDto.id", is(1)))
                 .andExpect(jsonPath("$[0].invoiceDto.number", is("FV/01")))
                 .andExpect(jsonPath("$[0].invoiceDto.taxpayerDto.name", is("Firma")))
-                .andExpect(jsonPath("$[0].price", is(100)));
+                .andExpect(jsonPath("$[0].grossPrice", is(123)));
     }
 }
