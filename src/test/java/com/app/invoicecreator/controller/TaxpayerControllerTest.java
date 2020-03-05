@@ -1,6 +1,7 @@
 package com.app.invoicecreator.controller;
 
 import com.app.invoicecreator.domain.taxpayer.TaxpayerDto;
+import com.app.invoicecreator.facade.taxpayers.TaxpayerFacade;
 import com.app.invoicecreator.mapper.TaxpayerMapper;
 import com.app.invoicecreator.service.TaxpayerService;
 import org.junit.Test;
@@ -25,10 +26,7 @@ public class TaxpayerControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private TaxpayerService taxpayerService;
-
-    @MockBean
-    private TaxpayerMapper taxpayerMapper;
+    private TaxpayerFacade taxpayerFacade;
 
     @Test
     public void testGetTaxpayer() throws Exception {
@@ -36,7 +34,7 @@ public class TaxpayerControllerTest {
         long nip = 1111L;
         String date = "2020-02-17";
         TaxpayerDto taxpayerDto = new TaxpayerDto(1L, "Company", nip, 55555L, "Address");
-        when(taxpayerMapper.mapToTaxpayerDto(taxpayerService.getTaxpayerByNip(nip, date))).thenReturn(taxpayerDto);
+        when(taxpayerFacade.getTaxpayer(nip, date)).thenReturn(taxpayerDto);
 
         //When & Then
         mockMvc.perform(MockMvcRequestBuilders
