@@ -31,6 +31,9 @@ public class Item {
     @Column(name = "netPrice")
     private BigDecimal netPrice;
 
+    @Column(name = "vat")
+    private BigDecimal vat;
+
     @Column(name = "grossPrice")
     private BigDecimal grossPrice;
 
@@ -45,7 +48,8 @@ public class Item {
         this.product = product;
         this.invoice = invoice;
         this.netPrice = netPrice;
-        this.grossPrice = netPrice.multiply(BigDecimal.ONE.add(new BigDecimal(product.getVat()).divide(new BigDecimal(100),new MathContext(2))));
+        this.vat = netPrice.multiply(new BigDecimal(product.getVat()).divide(new BigDecimal(100), new MathContext(2)));
+        this.grossPrice = netPrice.add(vat);
         this.quantity = quantity;
         this.value = new BigDecimal(quantity).multiply(grossPrice);
     }
@@ -53,7 +57,8 @@ public class Item {
     public Item(Product product, BigDecimal netPrice, int quantity) {
         this.product = product;
         this.netPrice = netPrice;
-        this.grossPrice = netPrice.multiply(BigDecimal.ONE.add(new BigDecimal(product.getVat()).divide(new BigDecimal(100),new MathContext(2))));
+        this.vat = netPrice.multiply(new BigDecimal(product.getVat()).divide(new BigDecimal(100), new MathContext(2)));
+        this.grossPrice = netPrice.add(vat);
         this.quantity = quantity;
         this.value = new BigDecimal(quantity).multiply(grossPrice);
     }

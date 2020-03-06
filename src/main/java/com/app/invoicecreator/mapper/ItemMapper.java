@@ -29,6 +29,7 @@ public class ItemMapper {
                 productMapper.mapToProductDto(item.getProduct()),
                 invoiceMapper.mapToInvoiceDto(item.getInvoice()),
                 item.getNetPrice(),
+                item.getVat(),
                 item.getGrossPrice(),
                 item.getQuantity(),
                 item.getValue());
@@ -52,6 +53,7 @@ public class ItemMapper {
                         productMapper.mapToProductDto(i.getProduct()),
                         invoiceMapper.mapToInvoiceDto(i.getInvoice()),
                         i.getNetPrice(),
+                        i.getVat(),
                         i.getGrossPrice(),
                         i.getQuantity(),
                         i.getValue()))

@@ -91,7 +91,7 @@ public class ItemControllerTest {
         product = new Product(1L, "TV", 23);
         productDto = new ProductDto(1L, "TV", 23);
         item = new Item(1L,product,invoice,new BigDecimal(100),10);
-        itemDto = new ItemDto(1L,productDto,invoiceDto,new BigDecimal(100),new BigDecimal(123),10,new BigDecimal(1000));
+        itemDto = new ItemDto(1L,productDto,invoiceDto,new BigDecimal(100),new BigDecimal(23),new BigDecimal(123),10,new BigDecimal(1000));
     }
 
     @Test
