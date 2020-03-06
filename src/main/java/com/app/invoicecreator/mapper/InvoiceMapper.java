@@ -21,6 +21,10 @@ public class InvoiceMapper {
                 .taxpayer(taxpayerMapper.mapToTaxpayer(invoiceDto.getTaxpayerDto()))
                 .comments(invoiceDto.getComments())
                 .invoiceCurrency(invoiceDto.getInvoiceCurrency())
+                .dateOfPayment(invoiceDto.getDateOfPayment())
+                .netTotal(invoiceDto.getNetTotal())
+                .vatTotal(invoiceDto.getVatTotal())
+                .grossTotal(invoiceDto.getGrossTotal())
                 .build();
     }
 
@@ -31,8 +35,10 @@ public class InvoiceMapper {
                 .issueDate(invoice.getIssueDate())
                 .taxpayerDto(taxpayerMapper.mapToTaxpayerDto(invoice.getTaxpayer()))
                 .comments(invoice.getComments())
-                .baseTotal(invoice.getGrossTotal())
-                .plnTotal(invoice.getCurrencyGrossTotal())
+                .netTotal(invoice.getNetTotal())
+                .vatTotal(invoice.getVatTotal())
+                .grossTotal(invoice.getGrossTotal())
+                .currencyGrossTotal(invoice.getCurrencyGrossTotal())
                 .invoiceCurrency(invoice.getInvoiceCurrency())
                 .build();
     }
@@ -45,8 +51,10 @@ public class InvoiceMapper {
                         .issueDate(i.getIssueDate())
                         .taxpayerDto(taxpayerMapper.mapToTaxpayerDto(i.getTaxpayer()))
                         .comments(i.getComments())
-                        .baseTotal(i.getGrossTotal())
-                        .plnTotal(i.getCurrencyGrossTotal())
+                        .netTotal(i.getNetTotal())
+                        .vatTotal(i.getVatTotal())
+                        .grossTotal(i.getGrossTotal())
+                        .currencyGrossTotal(i.getCurrencyGrossTotal())
                         .invoiceCurrency(i.getInvoiceCurrency())
                         .build())
                 .collect(Collectors.toList());

@@ -73,9 +73,11 @@ public class InvoiceControllerTest {
                 .issueDate("2002-01-03")
                 .taxpayerDto(taxpayerDto)
                 .comments("comments")
-                .baseTotal(BigDecimal.ZERO)
-                .plnTotal(BigDecimal.ZERO)
+                .netTotal(BigDecimal.ZERO)
+                .vatTotal(BigDecimal.ZERO)
+                .grossTotal(BigDecimal.ZERO)
                 .invoiceCurrency(InvoiceCurrency.PLN)
+                .dateOfPayment("2020-02-02")
                 .build();
         invoiceDto2 = InvoiceDto.builder()
                 .id(1L)
@@ -83,9 +85,11 @@ public class InvoiceControllerTest {
                 .issueDate("2002-01-03")
                 .taxpayerDto(taxpayerDto)
                 .comments("comments")
-                .baseTotal(BigDecimal.ZERO)
-                .plnTotal(BigDecimal.ZERO)
+                .netTotal(BigDecimal.ZERO)
+                .vatTotal(BigDecimal.ZERO)
+                .grossTotal(BigDecimal.ZERO)
                 .invoiceCurrency(InvoiceCurrency.PLN)
+                .dateOfPayment("2020-02-02")
                 .build();
     }
 
