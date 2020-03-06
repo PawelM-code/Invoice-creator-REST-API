@@ -31,8 +31,8 @@ public class InvoiceMapper {
                 .issueDate(invoice.getIssueDate())
                 .taxpayerDto(taxpayerMapper.mapToTaxpayerDto(invoice.getTaxpayer()))
                 .comments(invoice.getComments())
-                .baseTotal(invoice.getBaseTotal())
-                .plnTotal(invoice.getPlnTotal())
+                .baseTotal(invoice.getGrossTotal())
+                .plnTotal(invoice.getCurrencyGrossTotal())
                 .invoiceCurrency(invoice.getInvoiceCurrency())
                 .build();
     }
@@ -45,8 +45,8 @@ public class InvoiceMapper {
                         .issueDate(i.getIssueDate())
                         .taxpayerDto(taxpayerMapper.mapToTaxpayerDto(i.getTaxpayer()))
                         .comments(i.getComments())
-                        .baseTotal(i.getBaseTotal())
-                        .plnTotal(i.getPlnTotal())
+                        .baseTotal(i.getGrossTotal())
+                        .plnTotal(i.getCurrencyGrossTotal())
                         .invoiceCurrency(i.getInvoiceCurrency())
                         .build())
                 .collect(Collectors.toList());

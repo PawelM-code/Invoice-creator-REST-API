@@ -43,11 +43,17 @@ public class Invoice {
     @Column(name = "comments")
     private String comments;
 
-    @Column(name = "baseTotal")
-    private BigDecimal baseTotal;
+    @Column(name = "netTotal")
+    private BigDecimal netTotal;
 
-    @Column(name = "plnTotal")
-    private BigDecimal plnTotal;
+    @Column(name = "vatTotal")
+    private BigDecimal vatTotal;
+
+    @Column(name = "grossTotal")
+    private BigDecimal grossTotal;
+
+    @Column(name = "currencyGrossTotal")
+    private BigDecimal currencyGrossTotal;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "currency")

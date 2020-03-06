@@ -20,7 +20,9 @@ public class InvoiceService {
     public final CurrencyService currencyService;
 
     public Invoice saveInvoice(Invoice invoice) {
-        invoice.setBaseTotal(getInvoiceTotal(invoice.getId()));
+        invoice.setNetTotal(getInvoiceNetTotal(invoice.getId()));
+        invoice.setVatTotal(getInvoiceVatTotal(invoice.getId()));
+        invoice.setGrossTotal(getInvoiceGrossTotal(invoice.getId()));
 
         String invoiceCurrency = invoice.getInvoiceCurrency().toString();
         String invoiceDate = invoice.getIssueDate();
@@ -29,19 +31,41 @@ public class InvoiceService {
                     invoiceCurrency,
                     invoiceDate)
                     .getMidRate();
-            invoice.setPlnTotal(invoice.getBaseTotal().multiply(rate));
+            invoice.setCurrencyGrossTotal(invoice.getGrossTotal().multiply(rate));
         }else {
-            invoice.setPlnTotal(invoice.getBaseTotal());
+            invoice.setCurrencyGrossTotal(invoice.getGrossTotal());
         }
         return invoiceRepository.save(invoice);
     }
 
-    private BigDecimal getInvoiceTotal(Long id) {
+    private BigDecimal getInvoiceGrossTotal(Long id) {
         List<Item> itemList = itemService.getItemsByInvoiceId(id);
 
         BigDecimal totalResult = BigDecimal.ZERO;
         for (Item item : itemList) {
             totalResult = totalResult.add(item.getValue());
+        }
+        return totalResult;
+    }
+
+
+    private BigDecimal getInvoiceNetTotal(Long id) {
+        List<Item> itemList = itemService.getItemsByInvoiceId(id);
+
+        BigDecimal totalResult = BigDecimal.ZERO;
+        for (Item item : itemList) {
+            totalResult = totalResult.add(item.getNetPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
+        }
+        return totalResult;
+    }
+
+
+    private BigDecimal getInvoiceVatTotal(Long id) {
+        List<Item> itemList = itemService.getItemsByInvoiceId(id);
+
+        BigDecimal totalResult = BigDecimal.ZERO;
+        for (Item item : itemList) {
+            totalResult = totalResult.add(item.getVat().multiply(BigDecimal.valueOf(item.getQuantity())));
         }
         return totalResult;
     }
