@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ public class InvoiceService {
                     invoiceCurrency,
                     invoiceDate)
                     .getMidRate();
-            invoice.setCurrencyGrossTotal(invoice.getGrossTotal().multiply(rate));
+            invoice.setCurrencyGrossTotal(invoice.getGrossTotal().divide(rate, new MathContext(2)));
         }else {
             invoice.setCurrencyGrossTotal(invoice.getGrossTotal());
         }
