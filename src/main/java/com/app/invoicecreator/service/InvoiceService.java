@@ -32,7 +32,7 @@ public class InvoiceService {
                     invoiceCurrency,
                     invoiceDate)
                     .getMidRate();
-            invoice.setCurrencyGrossTotal(invoice.getGrossTotal().divide(rate, new MathContext(2)));
+            invoice.setCurrencyGrossTotal(invoice.getGrossTotal().divide(rate, new MathContext(4)));
         }else {
             invoice.setCurrencyGrossTotal(invoice.getGrossTotal());
         }
