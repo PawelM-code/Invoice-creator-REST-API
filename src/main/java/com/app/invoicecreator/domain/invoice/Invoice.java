@@ -1,6 +1,7 @@
 package com.app.invoicecreator.domain.invoice;
 
 import com.app.invoicecreator.domain.item.Item;
+import com.app.invoicecreator.domain.owner.Owner;
 import com.app.invoicecreator.domain.taxpayer.Taxpayer;
 import lombok.*;
 
@@ -26,6 +27,10 @@ public class Invoice {
 
     @Column(name = "issueDate")
     private String issueDate;
+
+    @ManyToOne
+    @JoinColumn(name = "Owner_id")
+    private Owner owner;
 
     @ManyToOne
     @JoinColumn(name = "taxpayer_id")

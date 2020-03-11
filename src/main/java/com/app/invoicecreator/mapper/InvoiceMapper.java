@@ -12,12 +12,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class InvoiceMapper {
     private final TaxpayerMapper taxpayerMapper;
+    private final OwnerMapper ownerMapper;
 
     public Invoice mapToInvoice(InvoiceDto invoiceDto) {
         return Invoice.builder()
                 .id(invoiceDto.getId())
                 .number(invoiceDto.getNumber())
                 .issueDate(invoiceDto.getIssueDate())
+                .owner(ownerMapper.mapToOwner(invoiceDto.getOwnerDto()))
                 .taxpayer(taxpayerMapper.mapToTaxpayer(invoiceDto.getTaxpayerDto()))
                 .comments(invoiceDto.getComments())
                 .invoiceCurrency(invoiceDto.getInvoiceCurrency())
@@ -34,6 +36,7 @@ public class InvoiceMapper {
                 .number(invoice.getNumber())
                 .issueDate(invoice.getIssueDate())
                 .dateOfPayment(invoice.getDateOfPayment())
+                .ownerDto(ownerMapper.mapToOwnerDto(invoice.getOwner()))
                 .taxpayerDto(taxpayerMapper.mapToTaxpayerDto(invoice.getTaxpayer()))
                 .comments(invoice.getComments())
                 .netTotal(invoice.getNetTotal())
@@ -51,6 +54,7 @@ public class InvoiceMapper {
                         .number(i.getNumber())
                         .issueDate(i.getIssueDate())
                         .dateOfPayment(i.getDateOfPayment())
+                        .ownerDto(ownerMapper.mapToOwnerDto(i.getOwner()))
                         .taxpayerDto(taxpayerMapper.mapToTaxpayerDto(i.getTaxpayer()))
                         .comments(i.getComments())
                         .netTotal(i.getNetTotal())
