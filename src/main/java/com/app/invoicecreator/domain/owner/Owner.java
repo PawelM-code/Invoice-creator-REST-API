@@ -40,13 +40,22 @@ public class Owner {
     @OneToMany(
             targetEntity = Invoice.class,
             mappedBy = "owner",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
     )
     List<Invoice> invoices = new ArrayList<>();
 
     public Owner(Long id, String name, Long nip, Long regon, String workingAddress, String bankAccount, String email) {
         this.id = id;
+        this.name = name;
+        this.nip = nip;
+        this.regon = regon;
+        this.workingAddress = workingAddress;
+        this.bankAccount = bankAccount;
+        this.email = email;
+    }
+
+    public Owner(String name, Long nip, Long regon, String workingAddress, String bankAccount, String email) {
         this.name = name;
         this.nip = nip;
         this.regon = regon;

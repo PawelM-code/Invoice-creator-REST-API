@@ -16,8 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -70,8 +70,8 @@ public class RepositoriesTestSuite {
     @Test
     public void testDeleteProduct() {
         //Given
-        Product product1 = new Product( "Samsung Z flip", 23);
-        Product product2 = new Product( "Samsung Z2 flip", 23);
+        Product product1 = new Product("Samsung Z flip", 23);
+        Product product2 = new Product("Samsung Z2 flip", 23);
         productRepository.save(product1);
         productRepository.save(product2);
         Long id = product1.getId();
@@ -89,18 +89,18 @@ public class RepositoriesTestSuite {
         //Given
         Product product = new Product("Samsung Z flip", 23);
         productRepository.save(product);
-        Invoice invoice = Invoice.builder().build();
-        Item item = new Item(1L, product, invoice, new BigDecimal(100), 10);
+        Item item = new Item(product, new BigDecimal(100), 10);
 
         //When
         itemRepository.save(item);
+        Long id = item.getId();
 
         //Then
-        assertTrue(itemRepository.findById(1L).isPresent());
-        assertEquals(10, itemRepository.findById(1L).get().getQuantity());
-        assertEquals(new BigDecimal(100), itemRepository.findById(1L).get().getNetPrice());
-        assertThat(new BigDecimal(1230.00), Matchers.comparesEqualTo(itemRepository.getOne(1L).getValue()));
-        assertThat(new BigDecimal(123), Matchers.comparesEqualTo(itemRepository.findById(1L).get().getGrossPrice()));
+        assertTrue(itemRepository.findById(id).isPresent());
+        assertEquals(10, itemRepository.findById(id).get().getQuantity());
+        assertEquals(new BigDecimal(100), itemRepository.findById(id).get().getNetPrice());
+        assertThat(new BigDecimal(1230.00), Matchers.comparesEqualTo(itemRepository.getOne(id).getValue()));
+        assertThat(new BigDecimal(123), Matchers.comparesEqualTo(itemRepository.findById(id).get().getGrossPrice()));
     }
 
     @Test
@@ -123,10 +123,9 @@ public class RepositoriesTestSuite {
     @Test
     public void testInvoiceRepository() {
         //Given
-        Product product = new Product(1L, "Samsung Z flip", 23);
+        Product product = new Product("Samsung Z flip", 23);
         Taxpayer taxpayer = new Taxpayer("Firma", 666666666L, 555555L, "Powstańców 33");
         Invoice invoice = Invoice.builder()
-                .id(1L)
                 .number("FV/01/2020")
                 .issueDate("2020-02-17")
                 .taxpayer(taxpayer)
@@ -135,7 +134,6 @@ public class RepositoriesTestSuite {
                 .dateOfPayment("2020-02-27")
                 .build();
         Invoice invoice2 = Invoice.builder()
-                .id(2L)
                 .number("FV/02/2020")
                 .issueDate("2020-02-18")
                 .taxpayer(taxpayer)
@@ -184,7 +182,6 @@ public class RepositoriesTestSuite {
     public void testOwnerRepository() {
         //Given
         Owner owner = new Owner(
-                1L,
                 "MyCompany",
                 111L,
                 22222L,
@@ -194,15 +191,16 @@ public class RepositoriesTestSuite {
 
         //When
         ownerRepository.save(owner);
+        Optional<Owner> findedOwner = ownerRepository.findById(owner.getId());
 
         //Then
-        assertTrue(ownerRepository.findById(1L).isPresent());
-        assertEquals("MyCompany", ownerRepository.findById(1L).get().getName());
-        assertEquals(111L, (long) ownerRepository.findById(1L).get().getNip());
-        assertEquals(22222L, (long) ownerRepository.findById(1L).get().getRegon());
-        assertEquals("ul. Calineczki", ownerRepository.findById(1L).get().getWorkingAddress());
-        assertEquals("12-1212-1212-1212", ownerRepository.findById(1L).get().getBankAccount());
-        assertEquals("test@test.test", ownerRepository.findById(1L).get().getEmail());
+        assertTrue(findedOwner.isPresent());
+        assertEquals("MyCompany", findedOwner.get().getName());
+        assertEquals(111L, (long) findedOwner.get().getNip());
+        assertEquals(22222L, (long) findedOwner.get().getRegon());
+        assertEquals("ul. Calineczki", findedOwner.get().getWorkingAddress());
+        assertEquals("12-1212-1212-1212", findedOwner.get().getBankAccount());
+        assertEquals("test@test.test", findedOwner.get().getEmail());
         assertEquals(1, ownerRepository.findAll().size());
     }
 }

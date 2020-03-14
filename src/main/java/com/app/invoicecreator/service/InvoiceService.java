@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +33,8 @@ public class InvoiceService {
                     invoiceCurrency,
                     invoiceDate)
                     .getMidRate();
-            invoice.setCurrencyGrossTotal(invoice.getGrossTotal().divide(rate, new MathContext(4)));
-        }else {
+            invoice.setCurrencyGrossTotal(invoice.getGrossTotal().divide(rate.setScale(2, RoundingMode.HALF_UP),RoundingMode.HALF_UP));
+        } else {
             invoice.setCurrencyGrossTotal(invoice.getGrossTotal());
         }
         return invoiceRepository.save(invoice);
