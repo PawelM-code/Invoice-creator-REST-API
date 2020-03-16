@@ -13,7 +13,7 @@ See also Frontend InvoiceMe App [https://github.com/PawelM-code/Frontend-Invoice
 [https://immense-hollows-30003.herokuapp.com/swagger-ui.html](https://immense-hollows-30003.herokuapp.com/swagger-ui.html)
 
 ## Demo running on Heroku
-On Heroku you find a deployed version. [https://immense-hollows-30003.herokuapp.com](https://immense-hollows-30003.herokuapp.com)
+On Heroku you can find a deployed version. [https://immense-hollows-30003.herokuapp.com](https://immense-hollows-30003.herokuapp.com)
 
 ## Local installation
 1. Clone this repo to your local machine using [https://github.com/PawelM-code/Invoice-creator-REST-API.git](https://github.com/PawelM-code/Invoice-creator-REST-API.git)
