@@ -12,15 +12,19 @@ See also Frontend InvoiceMe App [https://github.com/PawelM-code/Frontend-Invoice
 ## Api Documentation - Swagger
 [https://immense-hollows-30003.herokuapp.com/swagger-ui.html](https://immense-hollows-30003.herokuapp.com/swagger-ui.html)
 
+## Demo running on Heroku
+On Heroku you find a deployed version. [https://immense-hollows-30003.herokuapp.com](https://immense-hollows-30003.herokuapp.com)
+
 ## Local installation
 1. Clone this repo to your local machine using [https://github.com/PawelM-code/Invoice-creator-REST-API.git](https://github.com/PawelM-code/Invoice-creator-REST-API.git)
 2. Create MySQL database and give the privilege to the user (example in application.properties)
-4. In build.gradle remove dependency: compile 'org.postgresql:postgresql'
-3. In build.gradle add dependency: compile 'MySQL MySQL-connector-java'
+3. In build.gradle remove dependency: compile 'org.postgresql:postgresql'
+4. In build.gradle add dependency: compile 'MySQL MySQL-connector-java'
+5. Run app
 
 ## Technologies
 Project is created with:
-* Java jdk 8
+* Java
 * Gradle
 * Hibernate
 * Spring

@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,16 +30,35 @@ public class InvoiceService {
 
         String invoiceCurrency = invoice.getInvoiceCurrency().toString();
         String invoiceDate = invoice.getIssueDate();
+        String currencyDate = getCurrencyDate(invoiceDate);
+
         if (!invoiceCurrency.equals("PLN")) {
             BigDecimal rate = currencyService.getCurrencyRate(
                     invoiceCurrency,
-                    invoiceDate)
+                    currencyDate)
                     .getMidRate();
-            invoice.setCurrencyGrossTotal(invoice.getGrossTotal().divide(rate.setScale(2, RoundingMode.HALF_UP),RoundingMode.HALF_UP));
+            invoice.setCurrencyGrossTotal(invoice.getGrossTotal().divide(rate.setScale(2, RoundingMode.HALF_UP), RoundingMode.HALF_UP));
         } else {
             invoice.setCurrencyGrossTotal(invoice.getGrossTotal());
         }
         return invoiceRepository.save(invoice);
+    }
+
+    private String getCurrencyDate(String invoiceDate) {
+        LocalDate invoiceLocalDate = LocalDate.parse(invoiceDate);
+        LocalDate currencyLocalDate;
+
+        if (invoiceLocalDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
+            currencyLocalDate = invoiceLocalDate.minusDays(2);
+        } else if (invoiceLocalDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+            currencyLocalDate = invoiceLocalDate.minusDays(3);
+        } else if (invoiceLocalDate.getDayOfWeek() == DayOfWeek.MONDAY) {
+            currencyLocalDate = invoiceLocalDate.minusDays(4);
+        } else {
+            currencyLocalDate = invoiceLocalDate.minusDays(1);
+        }
+
+        return currencyLocalDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     private BigDecimal getInvoiceGrossTotal(Long id) {
