@@ -4,17 +4,26 @@ import com.app.invoicecreator.client.currencies.CurrencyClient;
 import com.app.invoicecreator.domain.currency.Currency;
 import com.app.invoicecreator.mapper.CurrencyMapper;
 import com.app.invoicecreator.repository.CurrencyRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class CurrencyService {
-    private final CurrencyClient currencyClient;
-    private final CurrencyMapper currencyMapper;
-    private final CurrencyRepository currencyRepository;
+    private CurrencyClient currencyClient;
+    private CurrencyMapper currencyMapper;
+    private CurrencyRepository currencyRepository;
+
+    public CurrencyService() {
+    }
+
+    @Autowired
+    public CurrencyService(CurrencyClient currencyClient, CurrencyMapper currencyMapper, CurrencyRepository currencyRepository) {
+        this.currencyClient = currencyClient;
+        this.currencyMapper = currencyMapper;
+        this.currencyRepository = currencyRepository;
+    }
 
     public void saveCurrencyRate(Currency currency) {
         if (currencyRepository.findByCodeAndDate(currency.getCode(), currency.getDate()).orElse(null) == null) {
